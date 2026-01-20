@@ -10,15 +10,23 @@ Algorithms:
 3. Neural Pruning (Otomatik Karantina)
 4. Adaptive Throttling (Uyarlanabilir Kısıtlama)
 5. Resource Rebalancing (Kaynak Yeniden Dengeleme)
+
+Flavor Support:
+- SYNAPSE/IoT, Cloud, Embedded, Infra, Data, Mobile
+- Her flavor için özelleştirilmiş IDI hesaplama ve eşikler
 """
 
 from dataclasses import dataclass, field
-from typing import List, Dict, Optional, Callable
+from typing import List, Dict, Optional, Callable, TYPE_CHECKING
 from enum import Enum
 from datetime import datetime, timedelta
 import math
 import asyncio
 from collections import deque
+
+# Flavor desteği için import (circular import önlemek için lazy)
+if TYPE_CHECKING:
+    from synapse_flavors import SynapseFlavor, FlavorType
 
 
 # =============================================================================
@@ -47,6 +55,16 @@ class MitigationAction(Enum):
     REBALANCE = "rebalance"
     ALERT = "alert"
     AUTO_INTEGRATE = "auto_integrate"
+
+
+class FlavorType(Enum):
+    """SYNAPSE Flavor tipleri - neural_mitigation modülünde kullanım için"""
+    IOT = "iot"
+    CLOUD = "cloud"
+    EMBEDDED = "embedded"
+    INFRA = "infra"
+    DATA = "data"
+    MOBILE = "mobile"
 
 
 @dataclass
@@ -79,6 +97,26 @@ class ComponentState:
     throttle_level: float = 1.0  # 1.0 = full speed, 0.0 = stopped
     health_score: float = 100.0
     telemetry_history: deque = field(default_factory=lambda: deque(maxlen=100))
+    # Flavor-specific fields
+    flavor_type: FlavorType = FlavorType.IOT
+    project_id: str = "default"
+    # Cloud-specific
+    pr_age_days: int = 0
+    changed_files: int = 0
+    dependent_services: int = 1
+    # Embedded-specific
+    modules: int = 1
+    # Infra-specific (CDI)
+    hours_since_apply: int = 0
+    changed_resources: int = 0
+    environments: int = 1
+    # Data-specific (SDI)
+    days_since_sync: int = 0
+    breaking_changes: int = 0
+    downstream_consumers: int = 1
+    # Mobile-specific
+    changed_screens: int = 0
+    platform_factor: float = 1.0
 
 
 @dataclass
@@ -177,6 +215,198 @@ class IDICalculator:
             int(future_loc),
             component.dependencies
         )
+
+
+class FlavorAwareIDICalculator:
+    """
+    Flavor-Aware IDI Calculator
+
+    Her SYNAPSE flavor'ı için özelleştirilmiş IDI/CDI/SDI hesaplama.
+
+    Formüller:
+    - IoT:      IDI = (Days × LoC/1000 × Dependencies/10) / 10
+    - Cloud:    IDI = (PR_Age × Changed_Files × Dependent_Services) / 100
+    - Embedded: IDI = (Days × LoC/500 × Modules) / 10
+    - Infra:    CDI = (Hours × Changed_Resources × Environments) / 100
+    - Data:     SDI = (Days × Breaking_Changes × Downstream_Consumers) / 50
+    - Mobile:   IDI = (Days × Changed_Screens × Platform_Factor) / 100
+    """
+
+    # Flavor-specific thresholds
+    THRESHOLDS = {
+        FlavorType.IOT: {
+            "healthy": 3.0, "warning": 5.0, "critical": 7.0, "quarantine": 10.0
+        },
+        FlavorType.CLOUD: {
+            "healthy": 2.0, "warning": 4.0, "critical": 6.0, "quarantine": 8.0
+        },
+        FlavorType.EMBEDDED: {
+            "healthy": 2.0, "warning": 3.5, "critical": 5.0, "quarantine": 7.0
+        },
+        FlavorType.INFRA: {
+            "healthy": 5.0, "warning": 10.0, "critical": 20.0, "quarantine": 50.0
+        },
+        FlavorType.DATA: {
+            "healthy": 3.0, "warning": 6.0, "critical": 10.0, "quarantine": 15.0
+        },
+        FlavorType.MOBILE: {
+            "healthy": 3.0, "warning": 5.0, "critical": 8.0, "quarantine": 12.0
+        }
+    }
+
+    METRIC_NAMES = {
+        FlavorType.IOT: "IDI",
+        FlavorType.CLOUD: "IDI",
+        FlavorType.EMBEDDED: "IDI",
+        FlavorType.INFRA: "CDI",
+        FlavorType.DATA: "SDI",
+        FlavorType.MOBILE: "IDI"
+    }
+
+    @classmethod
+    def calculate_for_component(cls, component: ComponentState) -> float:
+        """Bileşenin flavor'ına göre skor hesapla"""
+        return cls.calculate(
+            flavor=component.flavor_type,
+            days=component.days_since_integration,
+            loc_changed=component.loc_changed,
+            dependencies=component.dependencies,
+            pr_age_days=component.pr_age_days,
+            changed_files=component.changed_files,
+            dependent_services=component.dependent_services,
+            modules=component.modules,
+            hours_since_apply=component.hours_since_apply,
+            changed_resources=component.changed_resources,
+            environments=component.environments,
+            days_since_sync=component.days_since_sync,
+            breaking_changes=component.breaking_changes,
+            downstream_consumers=component.downstream_consumers,
+            changed_screens=component.changed_screens,
+            platform_factor=component.platform_factor
+        )
+
+    @classmethod
+    def calculate(cls, flavor: FlavorType, **kwargs) -> float:
+        """Flavor'a göre skor hesapla"""
+
+        if flavor == FlavorType.IOT:
+            # IDI = (Days × LoC/1000 × Dependencies/10) / 10
+            days = max(kwargs.get('days', 0), 0)
+            loc = max(kwargs.get('loc_changed', 0), 0) / 1000.0
+            deps = max(kwargs.get('dependencies', 1), 1) / 10.0
+            return round((days * loc * deps) / 10.0, 2)
+
+        elif flavor == FlavorType.CLOUD:
+            # IDI = (PR_Age × Changed_Files × Dependent_Services) / 100
+            pr_age = max(kwargs.get('pr_age_days', 0), 0)
+            files = max(kwargs.get('changed_files', 0), 0)
+            services = max(kwargs.get('dependent_services', 1), 1)
+            return round((pr_age * files * services) / 100.0, 2)
+
+        elif flavor == FlavorType.EMBEDDED:
+            # IDI = (Days × LoC/500 × Modules) / 10 (daha hassas)
+            days = max(kwargs.get('days', 0), 0)
+            loc = max(kwargs.get('loc_changed', 0), 0) / 500.0
+            modules = max(kwargs.get('modules', 1), 1)
+            return round((days * loc * modules) / 10.0, 2)
+
+        elif flavor == FlavorType.INFRA:
+            # CDI = (Hours × Changed_Resources × Environments) / 100
+            hours = max(kwargs.get('hours_since_apply', 0), 0)
+            resources = max(kwargs.get('changed_resources', 0), 0)
+            envs = max(kwargs.get('environments', 1), 1)
+            return round((hours * resources * envs) / 100.0, 2)
+
+        elif flavor == FlavorType.DATA:
+            # SDI = (Days × Breaking_Changes × Downstream_Consumers) / 50
+            days = max(kwargs.get('days_since_sync', 0), 0)
+            changes = max(kwargs.get('breaking_changes', 0), 0)
+            consumers = max(kwargs.get('downstream_consumers', 1), 1)
+            return round((days * changes * consumers) / 50.0, 2)
+
+        elif flavor == FlavorType.MOBILE:
+            # IDI = (Days × Changed_Screens × Platform_Factor) / 100
+            days = max(kwargs.get('days', 0), 0)
+            screens = max(kwargs.get('changed_screens', 0), 0)
+            pf = max(kwargs.get('platform_factor', 1.0), 1.0)
+            return round((days * screens * pf) / 100.0, 2)
+
+        # Default to IoT calculation
+        return IDICalculator.calculate(
+            kwargs.get('days', 0),
+            kwargs.get('loc_changed', 0),
+            kwargs.get('dependencies', 1)
+        )
+
+    @classmethod
+    def get_thresholds(cls, flavor: FlavorType) -> Dict[str, float]:
+        """Flavor için eşik değerlerini al"""
+        return cls.THRESHOLDS.get(flavor, cls.THRESHOLDS[FlavorType.IOT])
+
+    @classmethod
+    def get_metric_name(cls, flavor: FlavorType) -> str:
+        """Flavor için metrik adını al"""
+        return cls.METRIC_NAMES.get(flavor, "IDI")
+
+    @classmethod
+    def get_severity(cls, score: float, flavor: FlavorType) -> SeverityLevel:
+        """Flavor'a göre ciddiyet seviyesi"""
+        thresholds = cls.get_thresholds(flavor)
+
+        if score < thresholds["healthy"]:
+            return SeverityLevel.HEALTHY
+        elif score < thresholds["warning"]:
+            return SeverityLevel.WARNING
+        elif score < thresholds["quarantine"]:
+            return SeverityLevel.CRITICAL
+        else:
+            return SeverityLevel.QUARANTINE
+
+    @classmethod
+    def predict(cls, component: ComponentState, days_ahead: int) -> float:
+        """Gelecekteki skor tahminini hesapla"""
+        # Flavor'a göre projeksiyon
+        flavor = component.flavor_type
+
+        if flavor == FlavorType.IOT:
+            daily_loc_rate = component.loc_changed / max(component.days_since_integration, 1)
+            future_days = component.days_since_integration + days_ahead
+            future_loc = component.loc_changed + (daily_loc_rate * days_ahead)
+            return cls.calculate(flavor, days=future_days, loc_changed=int(future_loc),
+                               dependencies=component.dependencies)
+
+        elif flavor == FlavorType.CLOUD:
+            future_pr_age = component.pr_age_days + days_ahead
+            return cls.calculate(flavor, pr_age_days=future_pr_age,
+                               changed_files=component.changed_files,
+                               dependent_services=component.dependent_services)
+
+        elif flavor == FlavorType.EMBEDDED:
+            future_days = component.days_since_integration + days_ahead
+            daily_loc_rate = component.loc_changed / max(component.days_since_integration, 1)
+            future_loc = component.loc_changed + (daily_loc_rate * days_ahead)
+            return cls.calculate(flavor, days=future_days, loc_changed=int(future_loc),
+                               modules=component.modules)
+
+        elif flavor == FlavorType.INFRA:
+            future_hours = component.hours_since_apply + (days_ahead * 24)
+            return cls.calculate(flavor, hours_since_apply=future_hours,
+                               changed_resources=component.changed_resources,
+                               environments=component.environments)
+
+        elif flavor == FlavorType.DATA:
+            future_days = component.days_since_sync + days_ahead
+            return cls.calculate(flavor, days_since_sync=future_days,
+                               breaking_changes=component.breaking_changes,
+                               downstream_consumers=component.downstream_consumers)
+
+        elif flavor == FlavorType.MOBILE:
+            future_days = component.days_since_integration + days_ahead
+            return cls.calculate(flavor, days=future_days,
+                               changed_screens=component.changed_screens,
+                               platform_factor=component.platform_factor)
+
+        return 0.0
 
 
 class IDIBrake:

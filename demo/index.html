@@ -127,6 +127,21 @@
         .timeline-progress { position: absolute; left: 0; top: 0; bottom: 0; background: linear-gradient(90deg, #22c55e, #0284c7); border-radius: 8px 0 0 8px; }
         .timeline-marker { position: absolute; top: -8px; width: 2px; height: 56px; background: #ef4444; }
         .timeline-marker::after { content: attr(data-label); position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 10px; white-space: nowrap; color: #ef4444; font-weight: 500; }
+        /* SYNAPSE Flavors */
+        .flavor-badge { padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; display: inline-flex; align-items: center; }
+        .flavor-iot { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; }
+        .flavor-cloud { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
+        .flavor-embedded { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .flavor-infra { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .flavor-data { background: linear-gradient(135deg, #ec4899, #db2777); color: white; }
+        .flavor-mobile { background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; }
+        .flavor-icon { width: 14px; height: 14px; margin-right: 4px; }
+        .flavor-card { border: 2px solid transparent; border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s; }
+        .flavor-card:hover { border-color: #0284c7; background: #f0f9ff; }
+        .flavor-card.selected { border-color: #0284c7; background: #e0f2fe; }
+        .flavor-card .flavor-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+        .flavor-card .flavor-desc { font-size: 12px; color: #64748b; }
+        .flavor-card .flavor-formula { font-family: monospace; font-size: 11px; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; margin-top: 8px; }
         /* Project selector */
         .project-selector { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; cursor: pointer; }
         .project-selector:hover { background: #f1f5f9; }
@@ -1802,37 +1817,183 @@
                 <button onclick="hideModal('project-select-modal')" class="text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
             </div>
             <div class="p-4 space-y-2">
-                <div class="p-3 border-2 border-synapse-500 bg-synapse-50 rounded-lg cursor-pointer">
+                <div class="p-3 border-2 border-synapse-500 bg-synapse-50 rounded-lg cursor-pointer" onclick="selectProject('smart-iot')">
                     <div class="flex items-center">
                         <div class="w-10 h-10 bg-synapse-100 rounded-lg flex items-center justify-center mr-3"><i class="fas fa-microchip text-synapse-600"></i></div>
-                        <div>
-                            <p class="font-medium">Smart IoT Gateway</p>
-                            <p class="text-xs text-gray-500">3 components • 68% complete</p>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2">
+                                <p class="font-medium">Smart IoT Gateway</p>
+                                <span class="flavor-badge flavor-iot"><i class="fas fa-bolt flavor-icon"></i>IoT</span>
+                            </div>
+                            <p class="text-xs text-gray-500">3 components • 68% complete • IDI: 2.1</p>
                         </div>
                         <i class="fas fa-check text-synapse-600 ml-auto"></i>
                     </div>
                 </div>
-                <div class="p-3 border border-gray-200 hover:border-synapse-300 rounded-lg cursor-pointer">
+                <div class="p-3 border border-gray-200 hover:border-synapse-300 rounded-lg cursor-pointer" onclick="selectProject('ml-edge')">
                     <div class="flex items-center">
-                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3"><i class="fas fa-brain text-purple-600"></i></div>
-                        <div>
-                            <p class="font-medium">ML Edge Platform</p>
-                            <p class="text-xs text-gray-500">5 components • 45% complete</p>
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-3"><i class="fas fa-brain text-orange-600"></i></div>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2">
+                                <p class="font-medium">ML Edge Platform</p>
+                                <span class="flavor-badge flavor-embedded"><i class="fas fa-cog flavor-icon"></i>Embedded</span>
+                            </div>
+                            <p class="text-xs text-gray-500">5 components • 45% complete • IDI: 3.8</p>
                         </div>
                     </div>
                 </div>
-                <div class="p-3 border border-gray-200 hover:border-synapse-300 rounded-lg cursor-pointer">
+                <div class="p-3 border border-gray-200 hover:border-synapse-300 rounded-lg cursor-pointer" onclick="selectProject('cloud-analytics')">
                     <div class="flex items-center">
-                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3"><i class="fas fa-cloud text-green-600"></i></div>
-                        <div>
-                            <p class="font-medium">Cloud Analytics Suite</p>
-                            <p class="text-xs text-gray-500">4 components • 82% complete</p>
+                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3"><i class="fas fa-cloud text-purple-600"></i></div>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2">
+                                <p class="font-medium">Cloud Analytics Suite</p>
+                                <span class="flavor-badge flavor-cloud"><i class="fas fa-cloud flavor-icon"></i>Cloud</span>
+                            </div>
+                            <p class="text-xs text-gray-500">4 components • 82% complete • IDI: 1.5</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 border border-gray-200 hover:border-synapse-300 rounded-lg cursor-pointer" onclick="selectProject('data-platform')">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center mr-3"><i class="fas fa-database text-pink-600"></i></div>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2">
+                                <p class="font-medium">Data Platform</p>
+                                <span class="flavor-badge flavor-data"><i class="fas fa-table flavor-icon"></i>Data</span>
+                            </div>
+                            <p class="text-xs text-gray-500">6 components • 55% complete • SDI: 2.4</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 border border-gray-200 hover:border-synapse-300 rounded-lg cursor-pointer" onclick="selectProject('infra-terraform')">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3"><i class="fas fa-server text-green-600"></i></div>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2">
+                                <p class="font-medium">Infrastructure IaC</p>
+                                <span class="flavor-badge flavor-infra"><i class="fas fa-cubes flavor-icon"></i>Infra</span>
+                            </div>
+                            <p class="text-xs text-gray-500">8 modules • 90% complete • CDI: 4.2</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 border border-gray-200 hover:border-synapse-300 rounded-lg cursor-pointer" onclick="selectProject('mobile-app')">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mr-3"><i class="fas fa-mobile-alt text-indigo-600"></i></div>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2">
+                                <p class="font-medium">Mobile App Suite</p>
+                                <span class="flavor-badge flavor-mobile"><i class="fas fa-mobile flavor-icon"></i>Mobile</span>
+                            </div>
+                            <p class="text-xs text-gray-500">12 screens • 70% complete • IDI: 1.8</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="p-4 border-t">
-                <button class="btn btn-secondary w-full"><i class="fas fa-plus mr-2"></i>Create New Project</button>
+                <button class="btn btn-secondary w-full" onclick="hideModal('project-select-modal'); showModal('new-project-modal')"><i class="fas fa-plus mr-2"></i>Create New Project</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Project Modal with Flavor Selection -->
+    <div id="new-project-modal" class="modal">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b flex items-center justify-between sticky top-0 bg-white z-10">
+                <h2 class="text-xl font-bold"><i class="fas fa-folder-plus text-synapse-500 mr-2"></i>Create New Project</h2>
+                <button onclick="hideModal('new-project-modal')" class="text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-6 space-y-6">
+                <!-- Basic Info -->
+                <div class="space-y-4">
+                    <div><label class="block text-sm font-medium mb-1">Project Name *</label><input type="text" class="input" placeholder="e.g., Smart Factory Controller"></div>
+                    <div><label class="block text-sm font-medium mb-1">Description</label><textarea class="input" rows="2" placeholder="Brief project description..."></textarea></div>
+                </div>
+
+                <!-- Flavor Selection -->
+                <div>
+                    <label class="block text-sm font-medium mb-3">Select SYNAPSE Flavor *</label>
+                    <p class="text-xs text-gray-500 mb-4">Choose the flavor that best matches your project type. This determines the IDI formula, Quality Gates, and Neural Pruning triggers.</p>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="flavor-card selected" onclick="selectFlavor(this, 'iot')">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-synapse-100 rounded-lg flex items-center justify-center mr-2"><i class="fas fa-microchip text-synapse-600"></i></div>
+                                <span class="flavor-badge flavor-iot">IoT</span>
+                            </div>
+                            <div class="flavor-title">SYNAPSE/IoT</div>
+                            <div class="flavor-desc">IoT ve gömülü sistemler için kanonik implementasyon</div>
+                            <div class="flavor-formula">IDI = (Days × LoC/1000 × Deps/10) / 10</div>
+                        </div>
+                        <div class="flavor-card" onclick="selectFlavor(this, 'cloud')">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-2"><i class="fas fa-cloud text-purple-600"></i></div>
+                                <span class="flavor-badge flavor-cloud">Cloud</span>
+                            </div>
+                            <div class="flavor-title">SYNAPSE/Cloud</div>
+                            <div class="flavor-desc">Bulut-native ve mikroservis mimarileri</div>
+                            <div class="flavor-formula">IDI = (PR_Age × Files × Services) / 100</div>
+                        </div>
+                        <div class="flavor-card" onclick="selectFlavor(this, 'embedded')">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mr-2"><i class="fas fa-cog text-orange-600"></i></div>
+                                <span class="flavor-badge flavor-embedded">Embedded</span>
+                            </div>
+                            <div class="flavor-title">SYNAPSE/Embedded</div>
+                            <div class="flavor-desc">Kritik gömülü sistemler (otomotiv, medikal)</div>
+                            <div class="flavor-formula">IDI = (Days × LoC/500 × Modules) / 10</div>
+                        </div>
+                        <div class="flavor-card" onclick="selectFlavor(this, 'infra')">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-2"><i class="fas fa-server text-green-600"></i></div>
+                                <span class="flavor-badge flavor-infra">Infra</span>
+                            </div>
+                            <div class="flavor-title">SYNAPSE/Infra</div>
+                            <div class="flavor-desc">Infrastructure as Code, DevOps (Terraform, K8s)</div>
+                            <div class="flavor-formula">CDI = (Hours × Resources × Envs) / 100</div>
+                        </div>
+                        <div class="flavor-card" onclick="selectFlavor(this, 'data')">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-pink-100 rounded-lg flex items-center justify-center mr-2"><i class="fas fa-database text-pink-600"></i></div>
+                                <span class="flavor-badge flavor-data">Data</span>
+                            </div>
+                            <div class="flavor-title">SYNAPSE/Data</div>
+                            <div class="flavor-desc">Veri platformları ve ML pipeline'ları</div>
+                            <div class="flavor-formula">SDI = (Days × Breaking × Consumers) / 50</div>
+                        </div>
+                        <div class="flavor-card" onclick="selectFlavor(this, 'mobile')">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center mr-2"><i class="fas fa-mobile-alt text-indigo-600"></i></div>
+                                <span class="flavor-badge flavor-mobile">Mobile</span>
+                            </div>
+                            <div class="flavor-title">SYNAPSE/Mobile</div>
+                            <div class="flavor-desc">Mobil uygulama geliştirme, cross-platform</div>
+                            <div class="flavor-formula">IDI = (Days × Screens × Platform) / 100</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flavor-specific thresholds -->
+                <div id="flavor-thresholds" class="p-4 bg-gray-50 rounded-lg">
+                    <h4 class="font-medium text-sm mb-3"><i class="fas fa-sliders-h text-gray-500 mr-2"></i>IDI Thresholds (IoT defaults)</h4>
+                    <div class="grid grid-cols-4 gap-3 text-center text-sm">
+                        <div><div class="text-green-600 font-bold text-lg">3.0</div><div class="text-xs text-gray-500">Healthy</div></div>
+                        <div><div class="text-yellow-600 font-bold text-lg">5.0</div><div class="text-xs text-gray-500">Warning</div></div>
+                        <div><div class="text-orange-600 font-bold text-lg">7.0</div><div class="text-xs text-gray-500">Critical</div></div>
+                        <div><div class="text-red-600 font-bold text-lg">10.0</div><div class="text-xs text-gray-500">Quarantine</div></div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-3">You can customize thresholds in project settings after creation.</p>
+                </div>
+
+                <!-- Additional settings -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-sm font-medium mb-1">Team Lead</label><select class="input"><option>Select team lead...</option><option>John Smith</option><option>Jane Doe</option><option>Bob Wilson</option></select></div>
+                    <div><label class="block text-sm font-medium mb-1">Target Date</label><input type="date" class="input"></div>
+                </div>
+            </div>
+            <div class="p-6 border-t flex justify-end space-x-3 sticky bottom-0 bg-white">
+                <button class="btn btn-secondary" onclick="hideModal('new-project-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="createProject()"><i class="fas fa-plus mr-2"></i>Create Project</button>
             </div>
         </div>
     </div>
@@ -2129,6 +2290,153 @@
         // Export placeholder
         function exportData(type, format) {
             alert('Exporting ' + type + ' as ' + format.toUpperCase() + '...\n\nThis would generate a downloadable file in a real application.');
+        }
+
+        // SYNAPSE Flavors Configuration
+        const SYNAPSE_FLAVORS = {
+            iot: {
+                name: 'SYNAPSE/IoT',
+                metric: 'IDI',
+                formula: 'IDI = (Days × LoC/1000 × Dependencies/10) / 10',
+                thresholds: { healthy: 3.0, warning: 5.0, critical: 7.0, quarantine: 10.0 },
+                description: 'IoT ve gömülü sistemler için kanonik implementasyon',
+                icon: 'fa-microchip',
+                color: 'synapse'
+            },
+            cloud: {
+                name: 'SYNAPSE/Cloud',
+                metric: 'IDI',
+                formula: 'IDI = (PR_Age_Days × Changed_Files × Dependent_Services) / 100',
+                thresholds: { healthy: 2.0, warning: 4.0, critical: 6.0, quarantine: 8.0 },
+                description: 'Bulut-native ve mikroservis mimarileri',
+                icon: 'fa-cloud',
+                color: 'purple'
+            },
+            embedded: {
+                name: 'SYNAPSE/Embedded',
+                metric: 'IDI',
+                formula: 'IDI = (Days × LoC/500 × Modules) / 10',
+                thresholds: { healthy: 2.0, warning: 3.5, critical: 5.0, quarantine: 7.0 },
+                description: 'Kritik gömülü sistemler (otomotiv, medikal)',
+                icon: 'fa-cog',
+                color: 'orange'
+            },
+            infra: {
+                name: 'SYNAPSE/Infra',
+                metric: 'CDI',
+                formula: 'CDI = (Hours_Since_Apply × Changed_Resources × Environments) / 100',
+                thresholds: { healthy: 5.0, warning: 10.0, critical: 20.0, quarantine: 50.0 },
+                description: 'Infrastructure as Code, DevOps (Terraform, K8s)',
+                icon: 'fa-server',
+                color: 'green'
+            },
+            data: {
+                name: 'SYNAPSE/Data',
+                metric: 'SDI',
+                formula: 'SDI = (Days_Since_Sync × Breaking_Changes × Downstream_Consumers) / 50',
+                thresholds: { healthy: 3.0, warning: 6.0, critical: 10.0, quarantine: 15.0 },
+                description: 'Veri platformları ve ML pipeline\'ları',
+                icon: 'fa-database',
+                color: 'pink'
+            },
+            mobile: {
+                name: 'SYNAPSE/Mobile',
+                metric: 'IDI',
+                formula: 'IDI = (Days × Changed_Screens × Platform_Factor) / 100',
+                thresholds: { healthy: 3.0, warning: 5.0, critical: 8.0, quarantine: 12.0 },
+                description: 'Mobil uygulama geliştirme, cross-platform',
+                icon: 'fa-mobile-alt',
+                color: 'indigo'
+            }
+        };
+
+        let selectedFlavor = 'iot';
+
+        // Flavor Selection in New Project Modal
+        function selectFlavor(element, flavorType) {
+            // Update selection UI
+            document.querySelectorAll('.flavor-card').forEach(card => card.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedFlavor = flavorType;
+
+            // Update thresholds display
+            const flavor = SYNAPSE_FLAVORS[flavorType];
+            const thresholdsDiv = document.getElementById('flavor-thresholds');
+            if (thresholdsDiv && flavor) {
+                thresholdsDiv.innerHTML = `
+                    <h4 class="font-medium text-sm mb-3"><i class="fas fa-sliders-h text-gray-500 mr-2"></i>${flavor.metric} Thresholds (${flavor.name} defaults)</h4>
+                    <div class="grid grid-cols-4 gap-3 text-center text-sm">
+                        <div><div class="text-green-600 font-bold text-lg">${flavor.thresholds.healthy}</div><div class="text-xs text-gray-500">Healthy</div></div>
+                        <div><div class="text-yellow-600 font-bold text-lg">${flavor.thresholds.warning}</div><div class="text-xs text-gray-500">Warning</div></div>
+                        <div><div class="text-orange-600 font-bold text-lg">${flavor.thresholds.critical}</div><div class="text-xs text-gray-500">Critical</div></div>
+                        <div><div class="text-red-600 font-bold text-lg">${flavor.thresholds.quarantine}</div><div class="text-xs text-gray-500">Quarantine</div></div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-3">Formula: <code class="bg-gray-200 px-1 rounded">${flavor.formula}</code></p>
+                `;
+            }
+        }
+
+        // Project Selection
+        function selectProject(projectId) {
+            hideModal('project-select-modal');
+            // In a real app, this would load the project data
+            console.log('Selected project:', projectId);
+            // Update sidebar project selector (demo)
+            const projectNames = {
+                'smart-iot': { name: 'Smart IoT Gateway', flavor: 'iot', components: 3 },
+                'ml-edge': { name: 'ML Edge Platform', flavor: 'embedded', components: 5 },
+                'cloud-analytics': { name: 'Cloud Analytics Suite', flavor: 'cloud', components: 4 },
+                'data-platform': { name: 'Data Platform', flavor: 'data', components: 6 },
+                'infra-terraform': { name: 'Infrastructure IaC', flavor: 'infra', components: 8 },
+                'mobile-app': { name: 'Mobile App Suite', flavor: 'mobile', components: 12 }
+            };
+            const project = projectNames[projectId];
+            if (project) {
+                const selectorHtml = document.querySelector('.project-selector .flex-1');
+                if (selectorHtml) {
+                    selectorHtml.innerHTML = `
+                        <p class="text-sm font-medium truncate">${project.name}</p>
+                        <p class="text-xs text-gray-500">${project.components} components</p>
+                    `;
+                }
+            }
+        }
+
+        // Create Project
+        function createProject() {
+            const flavor = SYNAPSE_FLAVORS[selectedFlavor];
+            alert(`Creating new project with ${flavor.name} flavor.\n\nMetric: ${flavor.metric}\nFormula: ${flavor.formula}\n\nThis would create the project in a real application.`);
+            hideModal('new-project-modal');
+        }
+
+        // Calculate IDI based on flavor
+        function calculateFlavorIDI(flavorType, params) {
+            switch (flavorType) {
+                case 'iot':
+                    return ((params.days * (params.locChanged / 1000) * (params.dependencies / 10)) / 10).toFixed(2);
+                case 'cloud':
+                    return ((params.prAgeDays * params.changedFiles * params.dependentServices) / 100).toFixed(2);
+                case 'embedded':
+                    return ((params.days * (params.locChanged / 500) * params.modules) / 10).toFixed(2);
+                case 'infra':
+                    return ((params.hoursSinceApply * params.changedResources * params.environments) / 100).toFixed(2);
+                case 'data':
+                    return ((params.daysSinceSync * params.breakingChanges * params.downstreamConsumers) / 50).toFixed(2);
+                case 'mobile':
+                    return ((params.days * params.changedScreens * params.platformFactor) / 100).toFixed(2);
+                default:
+                    return '0.00';
+            }
+        }
+
+        // Get severity level based on flavor thresholds
+        function getFlavorSeverity(flavorType, score) {
+            const thresholds = SYNAPSE_FLAVORS[flavorType]?.thresholds;
+            if (!thresholds) return 'healthy';
+            if (score < thresholds.healthy) return 'healthy';
+            if (score < thresholds.warning) return 'warning';
+            if (score < thresholds.quarantine) return 'critical';
+            return 'quarantine';
         }
 
         // Charts
