@@ -77,7 +77,61 @@
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         .dependency-line { stroke: #94a3b8; stroke-width: 2; fill: none; }
         .filter-dropdown { position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px; min-width: 200px; z-index: 50; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        /* Drag-drop columns */
+        .th-draggable { cursor: grab; user-select: none; position: relative; }
+        .th-draggable:active { cursor: grabbing; }
+        .th-draggable.dragging { opacity: 0.5; background: #e0f2fe; }
+        .th-draggable.drag-over { border-left: 3px solid #0284c7; }
+        .th-draggable .drag-handle { opacity: 0; margin-right: 4px; color: #94a3b8; }
+        .th-draggable:hover .drag-handle { opacity: 1; }
+        /* Column manager */
+        .column-manager { position: relative; display: inline-block; }
+        .column-manager-dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; min-width: 280px; z-index: 60; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: none; }
+        .column-manager-dropdown.open { display: block; }
+        .column-manager-item { display: flex; align-items: center; padding: 8px; border-radius: 6px; cursor: pointer; }
+        .column-manager-item:hover { background: #f1f5f9; }
+        .column-manager-item input { margin-right: 10px; }
+        /* Live telemetry */
+        .telemetry-panel { background: linear-gradient(135deg, #1e293b, #0f172a); color: white; border-radius: 12px; padding: 16px; }
+        .telemetry-value { font-family: 'Courier New', monospace; font-size: 24px; font-weight: bold; }
+        .telemetry-label { font-size: 11px; color: #94a3b8; text-transform: uppercase; }
+        .telemetry-indicator { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+        .telemetry-indicator.live { background: #22c55e; animation: blink 1s infinite; }
+        .telemetry-indicator.warning { background: #eab308; }
+        .telemetry-indicator.critical { background: #ef4444; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        /* Permission matrix */
+        .perm-matrix td, .perm-matrix th { padding: 8px; text-align: center; border: 1px solid #e2e8f0; }
+        .perm-matrix th { background: #f8fafc; font-weight: 500; }
+        .perm-cell { width: 40px; height: 40px; }
+        /* Role group */
+        .role-group { border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 12px; }
+        .role-group-header { padding: 12px 16px; background: #f8fafc; border-radius: 8px 8px 0 0; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .role-group-content { padding: 12px; display: none; }
+        .role-group.open .role-group-content { display: block; }
+        /* Goal/Milestone */
+        .milestone-marker { width: 20px; height: 20px; background: #0284c7; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2); position: absolute; transform: translateX(-50%); cursor: pointer; z-index: 10; }
+        .milestone-marker:hover { transform: translateX(-50%) scale(1.2); }
+        .goal-card { border-left: 4px solid #0284c7; background: white; padding: 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px; }
+        /* LLM Right Panel */
+        .llm-panel { width: 0; min-width: 0; background: white; border-left: 1px solid #e2e8f0; transition: all 0.3s ease; overflow: hidden; display: flex; flex-direction: column; }
+        .llm-panel.open { width: 380px; min-width: 380px; }
+        .llm-toggle { position: fixed; right: 16px; bottom: 16px; width: 56px; height: 56px; background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(2,132,199,0.4); z-index: 50; transition: all 0.2s; }
+        .llm-toggle:hover { transform: scale(1.1); }
+        .llm-toggle.hidden { display: none; }
+        /* Simulation Panel */
+        .sim-control { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; }
+        .sim-slider { width: 100%; height: 6px; border-radius: 3px; background: #e2e8f0; appearance: none; cursor: pointer; }
+        .sim-slider::-webkit-slider-thumb { appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #0284c7; cursor: pointer; }
+        .timeline-bar { height: 40px; background: #f1f5f9; border-radius: 8px; position: relative; overflow: hidden; }
+        .timeline-progress { position: absolute; left: 0; top: 0; bottom: 0; background: linear-gradient(90deg, #22c55e, #0284c7); border-radius: 8px 0 0 8px; }
+        .timeline-marker { position: absolute; top: -8px; width: 2px; height: 56px; background: #ef4444; }
+        .timeline-marker::after { content: attr(data-label); position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 10px; white-space: nowrap; color: #ef4444; font-weight: 500; }
+        /* Project selector */
+        .project-selector { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; cursor: pointer; }
+        .project-selector:hover { background: #f1f5f9; }
     </style>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
 </head>
 <body class="bg-gray-50">
     <div class="flex h-screen">
@@ -91,16 +145,28 @@
                     <span class="font-bold text-gray-900">SYNAPSE</span>
                 </div>
             </div>
+            <!-- Project Selector -->
+            <div class="p-2 border-b border-gray-200">
+                <div class="project-selector" onclick="showModal('project-select-modal')">
+                    <div class="w-6 h-6 bg-synapse-100 rounded flex items-center justify-center mr-2"><i class="fas fa-microchip text-synapse-600 text-xs"></i></div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium truncate">Smart IoT Gateway</p>
+                        <p class="text-xs text-gray-500">3 components</p>
+                    </div>
+                    <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                </div>
+            </div>
             <nav class="flex-1 p-2 text-sm">
                 <div class="nav-section">Ana Menu</div>
                 <div class="nav-item active" onclick="showPage('dashboard')"><i class="fas fa-th-large w-5 mr-2 text-center"></i>Dashboard</div>
                 <div class="nav-item" onclick="showPage('projects')"><i class="fas fa-folder w-5 mr-2 text-center"></i>Projects</div>
-                
+
                 <div class="nav-section">Planlama</div>
                 <div class="nav-item" onclick="showPage('calendar')"><i class="fas fa-calendar w-5 mr-2 text-center"></i>Calendar</div>
                 <div class="nav-item" onclick="showPage('workitems')"><i class="fas fa-tasks w-5 mr-2 text-center"></i>Work Items</div>
                 <div class="nav-item" onclick="showPage('sprints')"><i class="fas fa-bolt w-5 mr-2 text-center"></i>Sprints</div>
                 <div class="nav-item" onclick="showPage('digitaltwin')"><i class="fas fa-cube w-5 mr-2 text-center"></i>Digital Twin</div>
+                <div class="nav-item" onclick="showPage('simulation')"><i class="fas fa-flask w-5 mr-2 text-center"></i>Simulation</div>
 
                 <div class="nav-section">Kalite & Risk</div>
                 <div class="nav-item" onclick="showPage('risks')"><i class="fas fa-exclamation-triangle w-5 mr-2 text-center"></i>Risk Management</div>
@@ -116,13 +182,15 @@
 
                 <div class="nav-section">Otomasyon</div>
                 <div class="nav-item" onclick="showPage('automation')"><i class="fas fa-cogs w-5 mr-2 text-center"></i>Automation Rules</div>
-                <div class="nav-item" onclick="showPage('aichat')"><i class="fas fa-robot w-5 mr-2 text-center"></i>AI Assistant</div>
 
                 <div class="nav-section">Yonetim</div>
                 <div class="nav-item" onclick="showPage('users')"><i class="fas fa-users w-5 mr-2 text-center"></i>Users & Roles</div>
+                <div class="nav-item" onclick="showPage('permissions')"><i class="fas fa-key w-5 mr-2 text-center"></i>Permissions</div>
                 <div class="nav-item" onclick="showPage('teams')"><i class="fas fa-user-friends w-5 mr-2 text-center"></i>Teams</div>
                 <div class="nav-item" onclick="showPage('components')"><i class="fas fa-microchip w-5 mr-2 text-center"></i>Components</div>
+                <div class="nav-item" onclick="showPage('goals')"><i class="fas fa-bullseye w-5 mr-2 text-center"></i>Goals & Milestones</div>
                 <div class="nav-item" onclick="showPage('allocation')"><i class="fas fa-balance-scale w-5 mr-2 text-center"></i>Resource Allocation</div>
+                <div class="nav-item" onclick="showPage('telemetry')"><i class="fas fa-satellite-dish w-5 mr-2 text-center"></i>Live Telemetry</div>
             </nav>
             <div class="p-3 border-t border-gray-200">
                 <div class="flex items-center space-x-2">
@@ -1245,8 +1313,667 @@
                     </div>
                 </div>
 
+                <!-- Live Telemetry Page -->
+                <div id="page-telemetry" class="page hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <div><h1 class="text-2xl font-bold">Live Telemetry</h1><p class="text-gray-500">Real-time system metrics via WebSocket</p></div>
+                        <div class="flex items-center space-x-3">
+                            <span class="text-sm"><span class="telemetry-indicator live"></span>Connected</span>
+                            <button class="btn btn-secondary" onclick="toggleTelemetry()"><i class="fas fa-pause mr-2"></i>Pause</button>
+                        </div>
+                    </div>
+                    <!-- Neural Connection Status -->
+                    <div class="telemetry-panel mb-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-semibold flex items-center"><i class="fas fa-brain mr-2 text-synapse-400"></i>Neural Connection Layer</h3>
+                            <span class="text-xs bg-green-500/20 text-green-400 px-3 py-1 rounded-full">WebSocket Active</span>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="text-center">
+                                <p class="telemetry-value text-green-400" id="tele-cpu">42%</p>
+                                <p class="telemetry-label">CPU Usage</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="telemetry-value text-blue-400" id="tele-mem">68%</p>
+                                <p class="telemetry-label">Memory</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="telemetry-value text-yellow-400" id="tele-latency">23ms</p>
+                                <p class="telemetry-label">Latency</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="telemetry-value text-purple-400" id="tele-throughput">847</p>
+                                <p class="telemetry-label">Req/sec</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-700">
+                            <div class="grid grid-cols-3 gap-4 text-center text-sm">
+                                <div><span class="text-gray-400">HW Capacity:</span> <span class="text-green-400 font-medium" id="tele-hw">72%</span></div>
+                                <div><span class="text-gray-400">SW Demand:</span> <span class="text-blue-400 font-medium" id="tele-sw">58%</span></div>
+                                <div><span class="text-gray-400">Balance:</span> <span class="text-green-400 font-medium" id="tele-balance">+0.14</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Auto Mitigation Log -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="card">
+                            <h3 class="font-semibold mb-4"><i class="fas fa-shield-alt text-synapse-500 mr-2"></i>Auto-Mitigation Log</h3>
+                            <div class="space-y-2 max-h-64 overflow-y-auto" id="mitigation-log">
+                                <div class="p-3 bg-yellow-50 border-l-4 border-yellow-500 rounded text-sm">
+                                    <div class="flex justify-between"><span class="font-medium text-yellow-800">IDI Brake Applied</span><span class="text-gray-500">2 min ago</span></div>
+                                    <p class="text-gray-600">ML Inference throttled to 70% (IDI: 4.8)</p>
+                                </div>
+                                <div class="p-3 bg-green-50 border-l-4 border-green-500 rounded text-sm">
+                                    <div class="flex justify-between"><span class="font-medium text-green-800">Balance Restored</span><span class="text-gray-500">5 min ago</span></div>
+                                    <p class="text-gray-600">HW-SW imbalance corrected automatically</p>
+                                </div>
+                                <div class="p-3 bg-red-50 border-l-4 border-red-500 rounded text-sm">
+                                    <div class="flex justify-between"><span class="font-medium text-red-800">Neural Pruning</span><span class="text-gray-500">2 hours ago</span></div>
+                                    <p class="text-gray-600">Legacy Payment quarantined (IDI: 8.4)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3 class="font-semibold mb-4"><i class="fas fa-chart-area text-synapse-500 mr-2"></i>IDI Trend (Real-time)</h3>
+                            <canvas id="idiRealtimeChart" height="180"></canvas>
+                        </div>
+                    </div>
+                    <!-- Component Telemetry -->
+                    <div class="card mt-6">
+                        <h3 class="font-semibold mb-4">Component Telemetry</h3>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="text-left text-gray-500 border-b">
+                                    <th class="pb-2" data-tooltip="System component identifier">Component</th>
+                                    <th class="pb-2" data-tooltip="Processor utilization percentage">CPU</th>
+                                    <th class="pb-2" data-tooltip="Memory usage percentage">Memory</th>
+                                    <th class="pb-2" data-tooltip="Current throttle level (0-100%)">Throttle</th>
+                                    <th class="pb-2" data-tooltip="Integration Debt Index score">IDI</th>
+                                    <th class="pb-2" data-tooltip="Current operational status">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="component-telemetry">
+                                <tr class="border-b"><td class="py-2">Sensor Driver</td><td><span class="text-green-600">32%</span></td><td>45%</td><td>100%</td><td class="text-green-600 font-medium">0.51</td><td><span class="badge badge-healthy">Healthy</span></td></tr>
+                                <tr class="border-b bg-yellow-50"><td class="py-2">ML Inference</td><td><span class="text-yellow-600">78%</span></td><td>82%</td><td class="text-yellow-600">70%</td><td class="text-yellow-600 font-medium">4.80</td><td><span class="badge badge-warning">Throttled</span></td></tr>
+                                <tr class="border-b"><td class="py-2">Cloud Gateway</td><td><span class="text-green-600">45%</span></td><td>58%</td><td>100%</td><td class="text-green-600 font-medium">1.20</td><td><span class="badge badge-healthy">Healthy</span></td></tr>
+                                <tr class="border-b bg-red-50"><td class="py-2">Legacy Payment</td><td><span class="text-gray-400">0%</span></td><td><span class="text-gray-400">0%</span></td><td class="text-red-600">0%</td><td class="text-red-600 font-medium">8.40</td><td><span class="badge badge-quarantine"><i class="fas fa-lock mr-1"></i>Quarantined</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Goals & Milestones Page -->
+                <div id="page-goals" class="page hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <div><h1 class="text-2xl font-bold">Goals & Milestones</h1><p class="text-gray-500">Define project objectives and track progress</p></div>
+                        <div class="flex space-x-2">
+                            <button class="btn btn-secondary" onclick="showModal('milestone-modal')"><i class="fas fa-flag mr-2"></i>New Milestone</button>
+                            <button class="btn btn-primary" onclick="showModal('goal-modal')"><i class="fas fa-plus mr-2"></i>New Goal</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2">
+                            <div class="card mb-6">
+                                <h3 class="font-semibold mb-4">Active Goals</h3>
+                                <div class="space-y-4">
+                                    <div class="goal-card" style="border-color:#22c55e">
+                                        <div class="flex items-start justify-between">
+                                            <div>
+                                                <h4 class="font-semibold">MVP Release</h4>
+                                                <p class="text-sm text-gray-500 mt-1">Launch core IoT platform with basic ML capabilities</p>
+                                            </div>
+                                            <span class="badge badge-healthy">On Track</span>
+                                        </div>
+                                        <div class="mt-3">
+                                            <div class="flex justify-between text-sm mb-1"><span class="text-gray-500">Progress</span><span class="font-medium">68%</span></div>
+                                            <div class="progress-bar"><div class="progress-bar-fill bg-green-500" style="width:68%"></div></div>
+                                        </div>
+                                        <div class="mt-3 flex items-center text-sm text-gray-500">
+                                            <i class="fas fa-calendar mr-2"></i>Due: March 15, 2024
+                                            <span class="mx-3">|</span>
+                                            <i class="fas fa-tasks mr-2"></i>12/18 work items
+                                        </div>
+                                        <div class="mt-3 flex space-x-2">
+                                            <button class="btn btn-sm btn-secondary" onclick="showModal('goal-workitems-modal')"><i class="fas fa-list mr-1"></i>Work Items</button>
+                                            <button class="btn btn-sm btn-secondary"><i class="fas fa-edit mr-1"></i>Edit</button>
+                                        </div>
+                                    </div>
+                                    <div class="goal-card" style="border-color:#eab308">
+                                        <div class="flex items-start justify-between">
+                                            <div>
+                                                <h4 class="font-semibold">ML Integration</h4>
+                                                <p class="text-sm text-gray-500 mt-1">Integrate TensorFlow Lite for edge inference</p>
+                                            </div>
+                                            <span class="badge badge-warning">At Risk</span>
+                                        </div>
+                                        <div class="mt-3">
+                                            <div class="flex justify-between text-sm mb-1"><span class="text-gray-500">Progress</span><span class="font-medium">45%</span></div>
+                                            <div class="progress-bar"><div class="progress-bar-fill bg-yellow-500" style="width:45%"></div></div>
+                                        </div>
+                                        <div class="mt-3 flex items-center text-sm text-gray-500">
+                                            <i class="fas fa-calendar mr-2"></i>Due: April 1, 2024
+                                            <span class="mx-3">|</span>
+                                            <i class="fas fa-tasks mr-2"></i>5/11 work items
+                                        </div>
+                                        <div class="mt-3 flex space-x-2">
+                                            <button class="btn btn-sm btn-secondary" onclick="showModal('goal-workitems-modal')"><i class="fas fa-list mr-1"></i>Work Items</button>
+                                            <button class="btn btn-sm btn-secondary"><i class="fas fa-edit mr-1"></i>Edit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="card">
+                                <h3 class="font-semibold mb-4">Milestones</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                                        <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                                        <div class="flex-1">
+                                            <p class="font-medium text-sm">Alpha Release</p>
+                                            <p class="text-xs text-gray-500">Feb 1, 2024</p>
+                                        </div>
+                                        <i class="fas fa-check text-green-500"></i>
+                                    </div>
+                                    <div class="flex items-center p-3 bg-synapse-50 rounded-lg">
+                                        <div class="w-3 h-3 bg-synapse-500 rounded-full mr-3"></div>
+                                        <div class="flex-1">
+                                            <p class="font-medium text-sm">Beta Release</p>
+                                            <p class="text-xs text-gray-500">Mar 1, 2024</p>
+                                        </div>
+                                        <span class="text-xs text-synapse-600">In Progress</span>
+                                    </div>
+                                    <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                        <div class="w-3 h-3 bg-gray-300 rounded-full mr-3"></div>
+                                        <div class="flex-1">
+                                            <p class="font-medium text-sm">GA Release</p>
+                                            <p class="text-xs text-gray-500">Apr 15, 2024</p>
+                                        </div>
+                                        <span class="text-xs text-gray-400">Upcoming</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Permissions Page -->
+                <div id="page-permissions" class="page hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <div><h1 class="text-2xl font-bold">Permissions</h1><p class="text-gray-500">Manage page and column-level access</p></div>
+                        <button class="btn btn-primary"><i class="fas fa-plus mr-2"></i>New Role</button>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div>
+                            <div class="card">
+                                <h3 class="font-semibold mb-4">Role Groups</h3>
+                                <div class="role-group open">
+                                    <div class="role-group-header" onclick="toggleRoleGroup(this)">
+                                        <span><i class="fas fa-crown text-yellow-500 mr-2"></i>Admin Roles</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="role-group-content">
+                                        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer" onclick="selectRole('admin')">
+                                            <span class="text-sm">System Admin</span>
+                                            <span class="badge bg-purple-100 text-purple-700">Full Access</span>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer">
+                                            <span class="text-sm">Project Admin</span>
+                                            <span class="badge bg-blue-100 text-blue-700">Project Level</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="role-group">
+                                    <div class="role-group-header" onclick="toggleRoleGroup(this)">
+                                        <span><i class="fas fa-users text-synapse-500 mr-2"></i>Team Roles</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="role-group-content">
+                                        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer">
+                                            <span class="text-sm">Developer</span>
+                                            <span class="badge bg-green-100 text-green-700">Standard</span>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer">
+                                            <span class="text-sm">QA Engineer</span>
+                                            <span class="badge bg-green-100 text-green-700">Standard</span>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer">
+                                            <span class="text-sm">Designer</span>
+                                            <span class="badge bg-green-100 text-green-700">Standard</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="role-group">
+                                    <div class="role-group-header" onclick="toggleRoleGroup(this)">
+                                        <span><i class="fas fa-eye text-gray-500 mr-2"></i>View Only Roles</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="role-group-content">
+                                        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer">
+                                            <span class="text-sm">Stakeholder</span>
+                                            <span class="badge bg-gray-100 text-gray-700">Read Only</span>
+                                        </div>
+                                        <div class="flex items-center justify-between p-2 hover:bg-gray-50 rounded cursor-pointer">
+                                            <span class="text-sm">Guest</span>
+                                            <span class="badge bg-gray-100 text-gray-700">Limited</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-2">
+                            <div class="card">
+                                <h3 class="font-semibold mb-4">Permission Matrix - <span class="text-synapse-600">System Admin</span></h3>
+                                <div class="overflow-x-auto">
+                                    <table class="perm-matrix w-full text-sm">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-left">Page / Feature</th>
+                                                <th data-tooltip="Can view the page">View</th>
+                                                <th data-tooltip="Can create new items">Create</th>
+                                                <th data-tooltip="Can edit existing items">Edit</th>
+                                                <th data-tooltip="Can delete items">Delete</th>
+                                                <th data-tooltip="Can export data">Export</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td class="text-left font-medium">Dashboard</td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td></tr>
+                                            <tr><td class="text-left font-medium">Projects</td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td></tr>
+                                            <tr><td class="text-left font-medium">Work Items</td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td></tr>
+                                            <tr><td class="text-left font-medium">IDI Dashboard</td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td></tr>
+                                            <tr><td class="text-left font-medium">Quality Gates</td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td></tr>
+                                            <tr><td class="text-left font-medium">Users & Roles</td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td><td><input type="checkbox" checked></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="mt-6">
+                                    <h4 class="font-medium mb-3">Column Permissions - Work Items</h4>
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                                        <label class="flex items-center p-2 bg-gray-50 rounded"><input type="checkbox" checked class="mr-2">ID</label>
+                                        <label class="flex items-center p-2 bg-gray-50 rounded"><input type="checkbox" checked class="mr-2">Title</label>
+                                        <label class="flex items-center p-2 bg-gray-50 rounded"><input type="checkbox" checked class="mr-2">Status</label>
+                                        <label class="flex items-center p-2 bg-gray-50 rounded"><input type="checkbox" checked class="mr-2">Assignee</label>
+                                        <label class="flex items-center p-2 bg-gray-50 rounded"><input type="checkbox" checked class="mr-2">Created Date</label>
+                                        <label class="flex items-center p-2 bg-gray-50 rounded"><input type="checkbox" checked class="mr-2">Updated Date</label>
+                                        <label class="flex items-center p-2 bg-gray-50 rounded"><input type="checkbox" checked class="mr-2">Created By</label>
+                                        <label class="flex items-center p-2 bg-gray-50 rounded"><input type="checkbox" class="mr-2">Effort</label>
+                                    </div>
+                                </div>
+                                <div class="mt-4 flex justify-end">
+                                    <button class="btn btn-primary">Save Permissions</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulation Page -->
+                <div id="page-simulation" class="page hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <div><h1 class="text-2xl font-bold">Project Simulation</h1><p class="text-gray-500">Simulate timelines, IDI scenarios, and team changes</p></div>
+                        <button class="btn btn-primary" onclick="runSimulation()"><i class="fas fa-play mr-2"></i>Run Simulation</button>
+                    </div>
+
+                    <!-- Project Timeline Overview -->
+                    <div class="card mb-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-semibold"><i class="fas fa-calendar-alt text-synapse-500 mr-2"></i>Project Timeline</h3>
+                            <div class="flex items-center space-x-4 text-sm">
+                                <span class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>Completed</span>
+                                <span class="flex items-center"><span class="w-3 h-3 bg-synapse-500 rounded-full mr-2"></span>In Progress</span>
+                                <span class="flex items-center"><span class="w-3 h-3 bg-gray-300 rounded-full mr-2"></span>Remaining</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-4 gap-4 mb-4 text-center">
+                            <div class="p-3 bg-gray-50 rounded-lg">
+                                <p class="text-xs text-gray-500">Start Date</p>
+                                <p class="font-semibold">Jan 1, 2024</p>
+                            </div>
+                            <div class="p-3 bg-synapse-50 rounded-lg border-2 border-synapse-200">
+                                <p class="text-xs text-gray-500">Today</p>
+                                <p class="font-semibold text-synapse-600">Feb 15, 2024</p>
+                            </div>
+                            <div class="p-3 bg-yellow-50 rounded-lg">
+                                <p class="text-xs text-gray-500">Predicted End</p>
+                                <p class="font-semibold text-yellow-600">Jul 12, 2024</p>
+                            </div>
+                            <div class="p-3 bg-red-50 rounded-lg border-2 border-red-200">
+                                <p class="text-xs text-gray-500">Target Deadline</p>
+                                <p class="font-semibold text-red-600">Jun 30, 2024</p>
+                            </div>
+                        </div>
+                        <div class="timeline-bar mb-2">
+                            <div class="timeline-progress" style="width:35%"></div>
+                            <div class="timeline-marker" style="left:35%" data-label="Today"></div>
+                            <div class="timeline-marker" style="left:75%;background:#ef4444" data-label="Deadline"></div>
+                            <div class="timeline-marker" style="left:85%;background:#eab308" data-label="Predicted"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-500">
+                            <span>Jan 2024</span>
+                            <span>Mar 2024</span>
+                            <span>May 2024</span>
+                            <span>Jul 2024</span>
+                        </div>
+                        <div class="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                            <p class="text-sm text-red-800"><i class="fas fa-exclamation-triangle mr-2"></i><strong>Warning:</strong> Current projection shows 12 days delay. On-time probability: <strong>35%</strong></p>
+                        </div>
+                    </div>
+
+                    <!-- Simulation Controls -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <!-- Team Size Simulation -->
+                        <div class="card">
+                            <h3 class="font-semibold mb-4"><i class="fas fa-users text-synapse-500 mr-2"></i>Team Size Simulation</h3>
+                            <div class="sim-control mb-4">
+                                <div class="flex justify-between mb-2">
+                                    <label class="text-sm font-medium">Add Team Members</label>
+                                    <span class="text-sm text-synapse-600 font-bold" id="team-delta">+2</span>
+                                </div>
+                                <input type="range" class="sim-slider" min="-3" max="5" value="2" oninput="updateTeamSlider(this.value)">
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>-3</span>
+                                    <span>Current: 6</span>
+                                    <span>+5</span>
+                                </div>
+                            </div>
+                            <div class="sim-control mb-4">
+                                <label class="text-sm font-medium">Effective From</label>
+                                <input type="date" class="input mt-2" value="2024-03-01">
+                            </div>
+                            <div class="p-3 bg-green-50 border border-green-200 rounded-lg">
+                                <p class="text-sm font-medium text-green-800">Impact Prediction:</p>
+                                <p class="text-sm text-gray-600 mt-1">Adding 2 members would save <strong>18 days</strong> and increase on-time probability to <strong>72%</strong></p>
+                            </div>
+                        </div>
+
+                        <!-- IDI Simulation -->
+                        <div class="card">
+                            <h3 class="font-semibold mb-4"><i class="fas fa-chart-line text-synapse-500 mr-2"></i>IDI Scenario Simulation</h3>
+                            <div class="sim-control mb-4">
+                                <label class="text-sm font-medium">Component</label>
+                                <select class="input mt-2">
+                                    <option>ML Inference (IDI: 4.8)</option>
+                                    <option>Sensor Driver (IDI: 0.5)</option>
+                                    <option>Cloud Gateway (IDI: 1.2)</option>
+                                </select>
+                            </div>
+                            <div class="sim-control mb-4">
+                                <div class="flex justify-between mb-2">
+                                    <label class="text-sm font-medium">Days Without Integration</label>
+                                    <span class="text-sm text-synapse-600 font-bold" id="idi-days">14 days</span>
+                                </div>
+                                <input type="range" class="sim-slider" min="1" max="30" value="14" oninput="document.getElementById('idi-days').textContent=this.value+' days'">
+                            </div>
+                            <div class="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                                <p class="text-sm font-medium text-yellow-800">IDI Projection:</p>
+                                <ul class="text-sm text-gray-600 mt-1">
+                                    <li>• Warning threshold (5.0): <strong>Day 3</strong></li>
+                                    <li>• Critical threshold (7.0): <strong>Day 8</strong></li>
+                                    <li>• Quarantine (10.0): <strong>Day 14</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monte Carlo Results -->
+                    <div class="card">
+                        <h3 class="font-semibold mb-4"><i class="fas fa-dice text-synapse-500 mr-2"></i>Monte Carlo Simulation Results (1000 iterations)</h3>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div>
+                                <canvas id="simResultChart" height="200"></canvas>
+                            </div>
+                            <div>
+                                <h4 class="font-medium mb-3">Completion Probability</h4>
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-1"><span>On Time (by Jun 30)</span><span class="font-medium text-red-600">35%</span></div>
+                                        <div class="progress-bar"><div class="progress-bar-fill bg-red-500" style="width:35%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-1"><span>1-2 Weeks Late</span><span class="font-medium text-yellow-600">40%</span></div>
+                                        <div class="progress-bar"><div class="progress-bar-fill bg-yellow-500" style="width:40%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-1"><span>2-4 Weeks Late</span><span class="font-medium text-orange-600">20%</span></div>
+                                        <div class="progress-bar"><div class="progress-bar-fill bg-orange-500" style="width:20%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm mb-1"><span>&gt;1 Month Late</span><span class="font-medium text-gray-600">5%</span></div>
+                                        <div class="progress-bar"><div class="progress-bar-fill bg-gray-500" style="width:5%"></div></div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 p-3 bg-synapse-50 rounded-lg">
+                                    <p class="text-sm"><strong>90% Confidence:</strong> Project will complete by <strong>Jul 28, 2024</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </main>
+
+        <!-- LLM Chat Panel (Right Sidebar) -->
+        <aside id="llm-panel" class="llm-panel">
+            <div class="p-4 border-b flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-synapse-600 rounded-lg flex items-center justify-center mr-2">
+                        <i class="fas fa-robot text-white text-sm"></i>
+                    </div>
+                    <span class="font-semibold">SYNAPSE AI</span>
+                </div>
+                <button onclick="toggleLLMPanel()" class="text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 space-y-3" id="llm-messages">
+                <div class="chat-bubble chat-ai">
+                    <p class="text-sm">Hi! I'm your SYNAPSE AI assistant. I can help you with:</p>
+                    <ul class="text-xs mt-2 space-y-1">
+                        <li>• Analyzing project status & risks</li>
+                        <li>• Running simulations</li>
+                        <li>• Creating work items</li>
+                        <li>• IDI recommendations</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="p-4 border-t">
+                <div class="flex space-x-2">
+                    <input type="text" id="llm-input" class="input flex-1 text-sm" placeholder="Ask anything..." onkeypress="if(event.key==='Enter')sendLLMMessage()">
+                    <button class="btn btn-primary btn-sm" onclick="sendLLMMessage()"><i class="fas fa-paper-plane"></i></button>
+                </div>
+                <div class="flex flex-wrap gap-1 mt-2">
+                    <button class="text-xs bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded" onclick="askLLM('What is the project status?')">Project status</button>
+                    <button class="text-xs bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded" onclick="askLLM('Run IDI analysis')">IDI analysis</button>
+                    <button class="text-xs bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded" onclick="askLLM('Show risks')">Risks</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- LLM Toggle Button -->
+    <div class="llm-toggle" onclick="toggleLLMPanel()" title="Open AI Assistant">
+        <i class="fas fa-robot text-xl"></i>
+    </div>
+
+    <!-- Project Select Modal -->
+    <div id="project-select-modal" class="modal">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md">
+            <div class="p-6 border-b flex items-center justify-between">
+                <h2 class="text-xl font-bold">Select Project</h2>
+                <button onclick="hideModal('project-select-modal')" class="text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-4 space-y-2">
+                <div class="p-3 border-2 border-synapse-500 bg-synapse-50 rounded-lg cursor-pointer">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-synapse-100 rounded-lg flex items-center justify-center mr-3"><i class="fas fa-microchip text-synapse-600"></i></div>
+                        <div>
+                            <p class="font-medium">Smart IoT Gateway</p>
+                            <p class="text-xs text-gray-500">3 components • 68% complete</p>
+                        </div>
+                        <i class="fas fa-check text-synapse-600 ml-auto"></i>
+                    </div>
+                </div>
+                <div class="p-3 border border-gray-200 hover:border-synapse-300 rounded-lg cursor-pointer">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3"><i class="fas fa-brain text-purple-600"></i></div>
+                        <div>
+                            <p class="font-medium">ML Edge Platform</p>
+                            <p class="text-xs text-gray-500">5 components • 45% complete</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 border border-gray-200 hover:border-synapse-300 rounded-lg cursor-pointer">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3"><i class="fas fa-cloud text-green-600"></i></div>
+                        <div>
+                            <p class="font-medium">Cloud Analytics Suite</p>
+                            <p class="text-xs text-gray-500">4 components • 82% complete</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t">
+                <button class="btn btn-secondary w-full"><i class="fas fa-plus mr-2"></i>Create New Project</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Goal Modal -->
+    <div id="goal-modal" class="modal">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg">
+            <div class="p-6 border-b flex items-center justify-between">
+                <h2 class="text-xl font-bold"><i class="fas fa-bullseye text-synapse-500 mr-2"></i>New Goal</h2>
+                <button onclick="hideModal('goal-modal')" class="text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div><label class="block text-sm font-medium mb-1">Goal Name</label><input type="text" class="input" placeholder="e.g., MVP Release"></div>
+                <div><label class="block text-sm font-medium mb-1">Description</label><textarea class="input" rows="3" placeholder="Describe the goal..."></textarea></div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-sm font-medium mb-1">Start Date</label><input type="date" class="input"></div>
+                    <div><label class="block text-sm font-medium mb-1">Due Date</label><input type="date" class="input"></div>
+                </div>
+                <div><label class="block text-sm font-medium mb-1">Linked Milestone</label><select class="input"><option>Select milestone...</option><option>Alpha Release</option><option>Beta Release</option><option>GA Release</option></select></div>
+                <div><label class="block text-sm font-medium mb-1">Color</label>
+                    <div class="flex space-x-2">
+                        <button class="w-8 h-8 rounded-full bg-synapse-500 border-2 border-synapse-600"></button>
+                        <button class="w-8 h-8 rounded-full bg-green-500 border-2 border-transparent"></button>
+                        <button class="w-8 h-8 rounded-full bg-yellow-500 border-2 border-transparent"></button>
+                        <button class="w-8 h-8 rounded-full bg-purple-500 border-2 border-transparent"></button>
+                        <button class="w-8 h-8 rounded-full bg-red-500 border-2 border-transparent"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t flex justify-end space-x-3">
+                <button class="btn btn-secondary" onclick="hideModal('goal-modal')">Cancel</button>
+                <button class="btn btn-primary">Create Goal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Milestone Modal -->
+    <div id="milestone-modal" class="modal">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg">
+            <div class="p-6 border-b flex items-center justify-between">
+                <h2 class="text-xl font-bold"><i class="fas fa-flag text-synapse-500 mr-2"></i>New Milestone</h2>
+                <button onclick="hideModal('milestone-modal')" class="text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div><label class="block text-sm font-medium mb-1">Milestone Name</label><input type="text" class="input" placeholder="e.g., Beta Release"></div>
+                <div><label class="block text-sm font-medium mb-1">Description</label><textarea class="input" rows="2" placeholder="Describe the milestone..."></textarea></div>
+                <div><label class="block text-sm font-medium mb-1">Target Date</label><input type="date" class="input"></div>
+                <div><label class="block text-sm font-medium mb-1">Add to</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center"><input type="checkbox" checked class="mr-2">Gantt Chart</label>
+                        <label class="flex items-center"><input type="checkbox" checked class="mr-2">Roadmap</label>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t flex justify-end space-x-3">
+                <button class="btn btn-secondary" onclick="hideModal('milestone-modal')">Cancel</button>
+                <button class="btn btn-primary">Create Milestone</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Goal Work Items Modal -->
+    <div id="goal-workitems-modal" class="modal">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+            <div class="p-6 border-b flex items-center justify-between">
+                <h2 class="text-xl font-bold">Work Items - MVP Release</h2>
+                <button onclick="hideModal('goal-workitems-modal')" class="text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-6 flex-1 overflow-y-auto">
+                <div class="flex justify-between mb-4">
+                    <input type="text" class="input" placeholder="Search work items..." style="width:250px">
+                    <button class="btn btn-primary" onclick="showModal('workitem-modal')"><i class="fas fa-plus mr-2"></i>Add Work Item</button>
+                </div>
+                <table class="w-full text-sm">
+                    <thead><tr class="text-left text-gray-500 border-b"><th class="pb-2">ID</th><th class="pb-2">Title</th><th class="pb-2">Status</th><th class="pb-2">Assignee</th><th class="pb-2">Actions</th></tr></thead>
+                    <tbody>
+                        <tr class="border-b"><td class="py-2 font-mono">WI-142</td><td>Implement MQTT reconnection</td><td><span class="badge bg-purple-100 text-purple-700">In Progress</span></td><td>Alice Kim</td><td><button class="btn btn-sm btn-icon btn-secondary" onclick="showModal('workitem-modal')"><i class="fas fa-edit"></i></button><button class="btn btn-sm btn-icon btn-secondary text-red-500 ml-1"><i class="fas fa-unlink"></i></button></td></tr>
+                        <tr class="border-b"><td class="py-2 font-mono">WI-143</td><td>Fix memory leak in ML inference</td><td><span class="badge bg-yellow-100 text-yellow-700">Code Review</span></td><td>Bob Johnson</td><td><button class="btn btn-sm btn-icon btn-secondary"><i class="fas fa-edit"></i></button><button class="btn btn-sm btn-icon btn-secondary text-red-500 ml-1"><i class="fas fa-unlink"></i></button></td></tr>
+                        <tr class="border-b"><td class="py-2 font-mono">WI-144</td><td>Add unit tests for sensor driver</td><td><span class="badge badge-healthy">Done</span></td><td>Alice Kim</td><td><button class="btn btn-sm btn-icon btn-secondary"><i class="fas fa-edit"></i></button><button class="btn btn-sm btn-icon btn-secondary text-red-500 ml-1"><i class="fas fa-unlink"></i></button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Work Item Modal (CRUD) -->
+    <div id="workitem-modal" class="modal">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b flex items-center justify-between">
+                <h2 class="text-xl font-bold"><i class="fas fa-tasks text-synapse-500 mr-2"></i>Work Item</h2>
+                <button onclick="hideModal('workitem-modal')" class="text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-sm font-medium mb-1">Type</label><select class="input"><option>Story</option><option>Task</option><option>Bug</option><option>Epic</option></select></div>
+                    <div><label class="block text-sm font-medium mb-1">Priority</label><select class="input"><option>High</option><option>Medium</option><option>Low</option></select></div>
+                </div>
+                <div><label class="block text-sm font-medium mb-1">Title</label><input type="text" class="input" placeholder="Work item title"></div>
+                <div><label class="block text-sm font-medium mb-1">Description</label><textarea class="input" rows="4" placeholder="Describe the work item..."></textarea></div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-sm font-medium mb-1">Assignee</label><select class="input"><option>Unassigned</option><option>Alice Kim</option><option>Bob Johnson</option><option>John Smith</option></select></div>
+                    <div><label class="block text-sm font-medium mb-1">Status</label><select class="input"><option>To Do</option><option>In Progress</option><option>Code Review</option><option>Testing</option><option>Done</option></select></div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-sm font-medium mb-1">Component</label><select class="input"><option>Sensor Driver</option><option>ML Inference</option><option>Cloud Gateway</option><option>API Gateway</option></select></div>
+                    <div><label class="block text-sm font-medium mb-1">Effort (hours)</label><input type="number" class="input" placeholder="8"></div>
+                </div>
+                <div><label class="block text-sm font-medium mb-1">Link to Goal</label><select class="input"><option>None</option><option>MVP Release</option><option>ML Integration</option></select></div>
+            </div>
+            <div class="p-6 border-t flex justify-between">
+                <button class="btn btn-secondary text-red-500"><i class="fas fa-trash mr-2"></i>Delete</button>
+                <div class="flex space-x-3">
+                    <button class="btn btn-secondary" onclick="hideModal('workitem-modal')">Cancel</button>
+                    <button class="btn btn-primary">Save Work Item</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Column Manager Dropdown (for tables) -->
+    <div id="column-manager-template" class="column-manager-dropdown">
+        <div class="flex items-center justify-between mb-3">
+            <span class="font-medium text-sm">Manage Columns</span>
+            <button class="text-sm text-synapse-600">Reset</button>
+        </div>
+        <div class="space-y-1">
+            <label class="column-manager-item"><input type="checkbox" checked><span>ID</span></label>
+            <label class="column-manager-item"><input type="checkbox" checked><span>Title</span></label>
+            <label class="column-manager-item"><input type="checkbox" checked><span>Type</span></label>
+            <label class="column-manager-item"><input type="checkbox" checked><span>Status</span></label>
+            <label class="column-manager-item"><input type="checkbox" checked><span>Assignee</span></label>
+            <label class="column-manager-item"><input type="checkbox" checked><span>Components</span></label>
+            <label class="column-manager-item"><input type="checkbox"><span>Created Date</span></label>
+            <label class="column-manager-item"><input type="checkbox"><span>Updated Date</span></label>
+            <label class="column-manager-item"><input type="checkbox"><span>Created By</span></label>
+            <label class="column-manager-item"><input type="checkbox"><span>Updated By</span></label>
+            <label class="column-manager-item"><input type="checkbox"><span>Effort</span></label>
+            <label class="column-manager-item"><input type="checkbox"><span>Related Items</span></label>
+            <label class="column-manager-item"><input type="checkbox"><span>Sprint</span></label>
+            <label class="column-manager-item"><input type="checkbox"><span>Goal</span></label>
+        </div>
     </div>
 
     <!-- Change Impact Analysis Modal -->
@@ -1453,6 +2180,301 @@
                         datasets: [{
                             label: 'Probability',
                             data: [15, 30, 25, 20, 10],
+                            backgroundColor: ['#22c55e', '#84cc16', '#eab308', '#f97316', '#ef4444']
+                        }]
+                    },
+                    options: { responsive: true, plugins: { legend: { display: false } } }
+                });
+            }
+
+            // IDI Realtime Chart
+            const idiRealtimeCanvas = document.getElementById('idiRealtimeChart');
+            if (idiRealtimeCanvas) {
+                window.idiRealtimeChart = new Chart(idiRealtimeCanvas, {
+                    type: 'line',
+                    data: {
+                        labels: Array.from({length: 20}, (_, i) => i + 's'),
+                        datasets: [
+                            { label: 'Sensor Driver', data: Array(20).fill(0.51), borderColor: '#22c55e', fill: false, tension: 0.4 },
+                            { label: 'ML Inference', data: Array(20).fill(4.8), borderColor: '#eab308', fill: false, tension: 0.4 },
+                            { label: 'Cloud Gateway', data: Array(20).fill(1.2), borderColor: '#0284c7', fill: false, tension: 0.4 }
+                        ]
+                    },
+                    options: { responsive: true, animation: false, plugins: { legend: { position: 'bottom' } }, scales: { y: { min: 0, max: 10 } } }
+                });
+            }
+        });
+
+        // Role Group Toggle
+        function toggleRoleGroup(header) {
+            header.closest('.role-group').classList.toggle('open');
+        }
+
+        // Telemetry Simulation
+        let telemetryPaused = false;
+        let telemetryInterval;
+
+        function toggleTelemetry() {
+            telemetryPaused = !telemetryPaused;
+            const btn = event.target.closest('button');
+            if (telemetryPaused) {
+                btn.innerHTML = '<i class="fas fa-play mr-2"></i>Resume';
+            } else {
+                btn.innerHTML = '<i class="fas fa-pause mr-2"></i>Pause';
+            }
+        }
+
+        function simulateTelemetry() {
+            if (telemetryPaused) return;
+
+            // Simulate random fluctuations
+            const cpu = Math.floor(35 + Math.random() * 20);
+            const mem = Math.floor(60 + Math.random() * 15);
+            const latency = Math.floor(15 + Math.random() * 30);
+            const throughput = Math.floor(800 + Math.random() * 100);
+            const hwCapacity = Math.floor(65 + Math.random() * 15);
+            const swDemand = Math.floor(50 + Math.random() * 20);
+            const balance = ((hwCapacity - swDemand) / 100).toFixed(2);
+
+            // Update UI
+            document.getElementById('tele-cpu').textContent = cpu + '%';
+            document.getElementById('tele-mem').textContent = mem + '%';
+            document.getElementById('tele-latency').textContent = latency + 'ms';
+            document.getElementById('tele-throughput').textContent = throughput;
+            document.getElementById('tele-hw').textContent = hwCapacity + '%';
+            document.getElementById('tele-sw').textContent = swDemand + '%';
+            document.getElementById('tele-balance').textContent = (balance >= 0 ? '+' : '') + balance;
+
+            // Update chart
+            if (window.idiRealtimeChart) {
+                const chart = window.idiRealtimeChart;
+                chart.data.datasets[0].data.push(0.51 + Math.random() * 0.1);
+                chart.data.datasets[0].data.shift();
+                chart.data.datasets[1].data.push(4.8 + Math.random() * 0.3 - 0.15);
+                chart.data.datasets[1].data.shift();
+                chart.data.datasets[2].data.push(1.2 + Math.random() * 0.2);
+                chart.data.datasets[2].data.shift();
+                chart.update('none');
+            }
+        }
+
+        // Start telemetry simulation
+        setInterval(simulateTelemetry, 2000);
+
+        // Column Drag & Drop
+        let draggedColumn = null;
+
+        document.querySelectorAll('.th-draggable').forEach(th => {
+            th.setAttribute('draggable', 'true');
+            th.addEventListener('dragstart', (e) => {
+                draggedColumn = th;
+                th.classList.add('dragging');
+            });
+            th.addEventListener('dragend', () => {
+                th.classList.remove('dragging');
+                document.querySelectorAll('.th-draggable').forEach(t => t.classList.remove('drag-over'));
+            });
+            th.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                if (draggedColumn !== th) {
+                    th.classList.add('drag-over');
+                }
+            });
+            th.addEventListener('dragleave', () => {
+                th.classList.remove('drag-over');
+            });
+            th.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (draggedColumn !== th) {
+                    const parent = th.parentNode;
+                    const allThs = [...parent.children];
+                    const draggedIdx = allThs.indexOf(draggedColumn);
+                    const targetIdx = allThs.indexOf(th);
+                    if (draggedIdx < targetIdx) {
+                        parent.insertBefore(draggedColumn, th.nextSibling);
+                    } else {
+                        parent.insertBefore(draggedColumn, th);
+                    }
+                }
+                th.classList.remove('drag-over');
+            });
+        });
+
+        // Column Manager Toggle
+        function toggleColumnManager(btn) {
+            const dropdown = btn.nextElementSibling;
+            dropdown.classList.toggle('open');
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.column-manager')) {
+                document.querySelectorAll('.column-manager-dropdown').forEach(d => d.classList.remove('open'));
+            }
+        });
+
+        // WebSocket Simulation (for demo purposes)
+        class SynapseWebSocket {
+            constructor() {
+                this.handlers = {};
+                this.connected = true;
+                console.log('SYNAPSE WebSocket: Simulated connection established');
+            }
+
+            on(event, handler) {
+                if (!this.handlers[event]) this.handlers[event] = [];
+                this.handlers[event].push(handler);
+            }
+
+            emit(event, data) {
+                console.log('SYNAPSE WebSocket emit:', event, data);
+            }
+
+            simulateEvent(event, data) {
+                if (this.handlers[event]) {
+                    this.handlers[event].forEach(h => h(data));
+                }
+            }
+        }
+
+        // Initialize WebSocket
+        const synapseSocket = new SynapseWebSocket();
+
+        // Listen for telemetry updates
+        synapseSocket.on('telemetry:update', (data) => {
+            console.log('Telemetry update:', data);
+        });
+
+        // Listen for mitigation events
+        synapseSocket.on('mitigation:triggered', (data) => {
+            const log = document.getElementById('mitigation-log');
+            if (log) {
+                const entry = document.createElement('div');
+                entry.className = 'p-3 bg-yellow-50 border-l-4 border-yellow-500 rounded text-sm';
+                entry.innerHTML = `<div class="flex justify-between"><span class="font-medium text-yellow-800">${data.action}</span><span class="text-gray-500">Just now</span></div><p class="text-gray-600">${data.reason}</p>`;
+                log.insertBefore(entry, log.firstChild);
+            }
+        });
+
+        // LLM Panel Functions
+        function toggleLLMPanel() {
+            const panel = document.getElementById('llm-panel');
+            const toggle = document.querySelector('.llm-toggle');
+            panel.classList.toggle('open');
+            toggle.classList.toggle('hidden', panel.classList.contains('open'));
+        }
+
+        function sendLLMMessage() {
+            const input = document.getElementById('llm-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const messagesDiv = document.getElementById('llm-messages');
+
+            // Add user message
+            const userBubble = document.createElement('div');
+            userBubble.className = 'chat-bubble chat-user';
+            userBubble.innerHTML = `<p class="text-sm">${message}</p>`;
+            messagesDiv.appendChild(userBubble);
+
+            input.value = '';
+
+            // Simulate AI response
+            setTimeout(() => {
+                const aiBubble = document.createElement('div');
+                aiBubble.className = 'chat-bubble chat-ai';
+                aiBubble.innerHTML = generateLLMResponse(message);
+                messagesDiv.appendChild(aiBubble);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }, 800);
+
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function askLLM(question) {
+            document.getElementById('llm-input').value = question;
+            sendLLMMessage();
+        }
+
+        function generateLLMResponse(question) {
+            const q = question.toLowerCase();
+            if (q.includes('status') || q.includes('durum')) {
+                return `<p class="text-sm"><strong>Project Status: Smart IoT Gateway</strong></p>
+                    <ul class="text-xs mt-2 space-y-1">
+                        <li>• Progress: <span class="text-synapse-600 font-medium">68%</span></li>
+                        <li>• On-time probability: <span class="text-yellow-600 font-medium">35%</span></li>
+                        <li>• Predicted delay: <span class="text-red-600 font-medium">12 days</span></li>
+                        <li>• Active risks: <span class="text-yellow-600 font-medium">2</span></li>
+                    </ul>
+                    <p class="text-xs mt-2 text-gray-500">Recommendation: Consider adding 2 team members to increase on-time probability to 72%.</p>`;
+            } else if (q.includes('idi') || q.includes('integration')) {
+                return `<p class="text-sm"><strong>IDI Analysis:</strong></p>
+                    <ul class="text-xs mt-2 space-y-1">
+                        <li>• Sensor Driver: <span class="text-green-600 font-medium">0.51</span> ✓</li>
+                        <li>• ML Inference: <span class="text-yellow-600 font-medium">4.80</span> ⚠️</li>
+                        <li>• Cloud Gateway: <span class="text-green-600 font-medium">1.20</span> ✓</li>
+                    </ul>
+                    <p class="text-xs mt-2 text-yellow-600">⚠️ ML Inference should be integrated within 3 days to avoid reaching critical threshold.</p>
+                    <button class="btn btn-sm btn-primary mt-2" onclick="showPage('idi')">View IDI Dashboard</button>`;
+            } else if (q.includes('risk')) {
+                return `<p class="text-sm"><strong>Active Risks:</strong></p>
+                    <div class="mt-2 space-y-2">
+                        <div class="text-xs p-2 bg-red-50 rounded">
+                            <span class="font-medium text-red-700">High:</span> Hardware delivery delay (Score: 16)
+                        </div>
+                        <div class="text-xs p-2 bg-yellow-50 rounded">
+                            <span class="font-medium text-yellow-700">Medium:</span> Integration complexity (Score: 9)
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-secondary mt-2" onclick="showPage('risks')">View Risk Register</button>`;
+            } else {
+                return `<p class="text-sm">I understand you're asking about "${question}". Let me help you with that.</p>
+                    <p class="text-xs mt-2 text-gray-500">For detailed information, please check the relevant dashboard or run a simulation.</p>
+                    <div class="mt-2 flex flex-wrap gap-1">
+                        <button class="text-xs bg-synapse-100 text-synapse-700 px-2 py-1 rounded" onclick="showPage('dashboard')">Dashboard</button>
+                        <button class="text-xs bg-synapse-100 text-synapse-700 px-2 py-1 rounded" onclick="showPage('simulation')">Simulation</button>
+                    </div>`;
+            }
+        }
+
+        // Simulation Functions
+        function updateTeamSlider(value) {
+            const delta = parseInt(value);
+            document.getElementById('team-delta').textContent = (delta >= 0 ? '+' : '') + delta;
+        }
+
+        function runSimulation() {
+            alert('Running Monte Carlo simulation with 1000 iterations...\n\nIn production, this would call the backend simulation API.');
+
+            // Initialize simulation result chart
+            const simCanvas = document.getElementById('simResultChart');
+            if (simCanvas && !window.simChart) {
+                window.simChart = new Chart(simCanvas, {
+                    type: 'bar',
+                    data: {
+                        labels: ['On Time', '1-2 Wks', '2-4 Wks', '1-2 Mo', '>2 Mo'],
+                        datasets: [{
+                            label: 'Probability',
+                            data: [35, 40, 20, 4, 1],
+                            backgroundColor: ['#22c55e', '#84cc16', '#eab308', '#f97316', '#ef4444']
+                        }]
+                    },
+                    options: { responsive: true, plugins: { legend: { display: false } } }
+                });
+            }
+        }
+
+        // Initialize simulation chart on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const simCanvas = document.getElementById('simResultChart');
+            if (simCanvas) {
+                window.simChart = new Chart(simCanvas, {
+                    type: 'bar',
+                    data: {
+                        labels: ['On Time', '1-2 Wks', '2-4 Wks', '1-2 Mo', '>2 Mo'],
+                        datasets: [{
+                            label: 'Probability',
+                            data: [35, 40, 20, 4, 1],
                             backgroundColor: ['#22c55e', '#84cc16', '#eab308', '#f97316', '#ef4444']
                         }]
                     },
