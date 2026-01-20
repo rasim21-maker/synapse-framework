@@ -179,6 +179,7 @@
                 <div class="nav-item" onclick="showPage('reports')"><i class="fas fa-chart-line w-5 mr-2 text-center"></i>Reports & Analytics</div>
                 <div class="nav-item" onclick="showPage('gantt')"><i class="fas fa-stream w-5 mr-2 text-center"></i>Gantt Chart</div>
                 <div class="nav-item" onclick="showPage('roadmap')"><i class="fas fa-map w-5 mr-2 text-center"></i>Roadmap</div>
+                <div class="nav-item" onclick="showPage('manifesto12')"><i class="fas fa-scroll w-5 mr-2 text-center"></i>Manifesto 12</div>
 
                 <div class="nav-section">Otomasyon</div>
                 <div class="nav-item" onclick="showPage('automation')"><i class="fas fa-cogs w-5 mr-2 text-center"></i>Automation Rules</div>
@@ -958,6 +959,793 @@
                                         <div class="absolute" style="left:95%"><div class="w-4 h-4 bg-green-500 rounded-full"></div><p class="text-xs mt-1">v2.0</p></div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manifesto 12 Page -->
+                <div id="page-manifesto12" class="page hidden">
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-900">Manifesto 12: Project Types için SYNAPSE Uyarlama</h1>
+                            <p class="text-gray-500">Chapter 12 - Tailoring SYNAPSE to Project Types</p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="badge bg-synapse-100 text-synapse-700">Version 1.0.0</span>
+                            <span class="badge bg-gray-100 text-gray-700">Last Updated: January 2026</span>
+                            <span class="badge bg-green-100 text-green-700">CC BY-SA 4.0</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-8">
+                        <div class="card space-y-4">
+                            <div>
+                                <h2 class="text-xl font-semibold">12.1 Overview</h2>
+                                <p class="text-sm text-gray-600 mt-1">SYNAPSE, hardware-software co-design kökenli olsa da, temel ilkeleri evrenseldir. Bu bölüm, farklı proje türlerine uyarlamayı anlatır.</p>
+                            </div>
+                            <div class="border-l-4 border-synapse-500 bg-synapse-50 p-4 rounded">
+                                <h3 class="font-semibold text-synapse-700">12.1.1 The Universality Principle</h3>
+                                <p class="text-sm text-gray-700 mt-1">SYNAPSE'ın 12 ilkesi proje türünden bağımsızdır. Değişen şey niyet değil, uygulamadır.</p>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full text-sm">
+                                    <thead>
+                                        <tr class="text-left text-gray-500 border-b">
+                                            <th class="py-2 pr-4">Principle</th>
+                                            <th class="py-2 pr-4">Universal Intent</th>
+                                            <th class="py-2">Implementation Varies By</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-gray-700">
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 font-medium">Digital Twin</td>
+                                            <td class="py-2 pr-4">Faithful pre-production representation</td>
+                                            <td class="py-2">What "production" means</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 font-medium">IDI</td>
+                                            <td class="py-2 pr-4">Measure integration drift</td>
+                                            <td class="py-2">What "integration" means</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 font-medium">Quality Gates</td>
+                                            <td class="py-2 pr-4">Automated policy enforcement</td>
+                                            <td class="py-2">Which policies matter</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 pr-4 font-medium">Neural Pruning</td>
+                                            <td class="py-2 pr-4">Isolate unhealthy components</td>
+                                            <td class="py-2">What "unhealthy" means</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900">12.1.2 SYNAPSE Flavors</h3>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-xs overflow-x-auto mt-2">SYNAPSE Framework
+├── SYNAPSE/IoT       → Hardware + Firmware + Cloud
+├── SYNAPSE/Cloud     → SaaS, PaaS, Microservices
+├── SYNAPSE/Embedded  → Pure Firmware / RTOS
+├── SYNAPSE/Infra     → DevOps, Platform Engineering
+├── SYNAPSE/Data      → Data Engineering, ML Pipelines
+└── SYNAPSE/Mobile    → iOS/Android + Backend</pre>
+                                <ul class="text-sm text-gray-700 mt-2 list-disc list-inside space-y-1">
+                                    <li>Yeniden yorumlanan terminoloji</li>
+                                    <li>Uyarlanmış IDI formülü</li>
+                                    <li>Uygun Quality Gate şablonları</li>
+                                    <li>Doğru Digital Twin implementasyonu</li>
+                                    <li>Uygun SCMM ilerlemesi</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card space-y-4">
+                            <h2 class="text-xl font-semibold">12.2 SYNAPSE/IoT (Hardware-Software Co-Design)</h2>
+                            <p class="text-sm text-gray-700">Hedef: Akıllı cihazlar, endüstriyel IoT, giyilebilirler, bağlı araçlar.</p>
+                            <div>
+                                <h3 class="font-semibold">12.2.1 Key Characteristics</h3>
+                                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mt-2">
+                                    <li>Donanım, firmware, backend, frontend, ML gibi çoklu disiplinler</li>
+                                    <li>Uzun donanım tedarik süreleri</li>
+                                    <li>Güç, termal, boyut gibi fiziksel kısıtlar</li>
+                                    <li>Regülasyon gereksinimleri (FCC, CE, UL)</li>
+                                    <li>Alan dağıtım zorlukları</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.2.2 Digital Twin Implementation</h3>
+                                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mt-2">
+                                    <li><strong>Hardware:</strong> SPICE simülasyonları, termal FEA, güç analizi</li>
+                                    <li><strong>Firmware:</strong> Virtual MCU (QEMU, Renode), FPGA simülasyonu</li>
+                                    <li><strong>Cloud:</strong> Local Kubernetes, mock API'ler</li>
+                                    <li><strong>Integration:</strong> HIL testing</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.2.3 IDI Formula (Standard)</h3>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto mt-2">IDI = (Days × LoC/1000 × Dependencies/10) / 10</pre>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.2.4 Quality Gate Templates</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">Gate</th>
+                                                <th class="py-2 pr-4">Threshold</th>
+                                                <th class="py-2">Enforcement Point</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Power Budget</td><td class="py-2 pr-4">&lt; 5.0W</td><td class="py-2">Pre-commit, Build</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Latency</td><td class="py-2 pr-4">&lt; 100ms</td><td class="py-2">Build, Deploy</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Memory Footprint</td><td class="py-2 pr-4">&lt; 512KB firmware</td><td class="py-2">Pre-commit</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Test Coverage</td><td class="py-2 pr-4">&gt; 80%</td><td class="py-2">Pre-merge</td></tr>
+                                            <tr><td class="py-2 pr-4">Thermal Limit</td><td class="py-2 pr-4">&lt; 85°C</td><td class="py-2">HIL Testing</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.2.5 Neural Pruning Triggers</h3>
+                                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mt-2">
+                                    <li>IDI &gt; 5.0 (critical threshold)</li>
+                                    <li>Power budget exceeded by &gt;20%</li>
+                                    <li>3+ consecutive integration failures</li>
+                                    <li>Security vulnerability (critical/high)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card space-y-4">
+                            <h2 class="text-xl font-semibold">12.3 SYNAPSE/Cloud (SaaS & Microservices)</h2>
+                            <p class="text-sm text-gray-700">Hedef: Web uygulamaları, SaaS platformları, mikro servisler, serverless.</p>
+                            <div>
+                                <h3 class="font-semibold">12.3.1 Key Characteristics</h3>
+                                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mt-2">
+                                    <li>Hızlı iterasyon döngüleri</li>
+                                    <li>Fiziksel kısıtların olmaması</li>
+                                    <li>Yüksek deploy frekansı beklentisi</li>
+                                    <li>Yatay ölçeklenebilirlik</li>
+                                    <li>Multi-tenant kurgular</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.3.2 Terminology Mapping</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">IoT Term</th>
+                                                <th class="py-2 pr-4">Cloud Equivalent</th>
+                                                <th class="py-2">Explanation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Hardware Component</td><td class="py-2 pr-4">Service / Container</td><td class="py-2">Deployable unit</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Firmware</td><td class="py-2 pr-4">Core Business Logic</td><td class="py-2">Critical path code</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">PCB Revision</td><td class="py-2 pr-4">Service Version</td><td class="py-2">Release artifact</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Power Budget</td><td class="py-2 pr-4">Cost Budget</td><td class="py-2">Cloud spend limit</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Thermal Limit</td><td class="py-2 pr-4">CPU/Memory Limit</td><td class="py-2">Resource constraints</td></tr>
+                                            <tr><td class="py-2 pr-4">HIL Testing</td><td class="py-2 pr-4">Staging Environment</td><td class="py-2">Pre-production validation</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.3.3 Digital Twin Implementation</h3>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto mt-2">Production Environment
+        ↕ (Twin relationship)
+Staging Environment
+        ↕ (Twin relationship)
+Development Environment</pre>
+                                <p class="text-sm text-gray-700 mt-2">Digital Twin bileşenleri: Infrastructure-as-Code, anonymized data snapshots, config parity, dependency mocks.</p>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto mt-2">Fidelity = (
+  Infrastructure_Match × 0.3 +
+  Data_Freshness × 0.2 +
+  Config_Parity × 0.2 +
+  Dependency_Coverage × 0.3
+) × 100</pre>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.3.4 IDI Formula (Cloud)</h3>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto mt-2">IDI = (PR_Age_Days × Changed_Files × Dependent_Services) / 100</pre>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-xs overflow-x-auto mt-2">Branch created: 5 days ago
+Files changed: 23
+Dependent services: 4
+
+IDI = (5 × 23 × 4) / 100 = 4.6 (Warning)</pre>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.3.5 Quality Gate Templates</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">Gate</th>
+                                                <th class="py-2 pr-4">Threshold</th>
+                                                <th class="py-2">Enforcement Point</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">API Response Time</td><td class="py-2 pr-4">p99 &lt; 200ms</td><td class="py-2">CI/CD, Canary</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Error Rate</td><td class="py-2 pr-4">&lt; 0.1%</td><td class="py-2">Canary, Production</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Test Coverage</td><td class="py-2 pr-4">&gt; 80%</td><td class="py-2">Pre-merge</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Bundle Size (Frontend)</td><td class="py-2 pr-4">&lt; 500KB gzipped</td><td class="py-2">Build</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Deployment Frequency</td><td class="py-2 pr-4">&gt; 1/day</td><td class="py-2">Metric (not blocking)</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Change Failure Rate</td><td class="py-2 pr-4">&lt; 5%</td><td class="py-2">Metric</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">MTTR</td><td class="py-2 pr-4">&lt; 1 hour</td><td class="py-2">Metric</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Container Memory</td><td class="py-2 pr-4">&lt; 512MB</td><td class="py-2">Deploy</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Container CPU</td><td class="py-2 pr-4">&lt; 500m</td><td class="py-2">Deploy</td></tr>
+                                            <tr><td class="py-2 pr-4">Cloud Cost Delta</td><td class="py-2 pr-4">&lt; 10% increase</td><td class="py-2">Deploy</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.3.6 Neural Pruning Triggers</h3>
+                                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mt-2">
+                                    <li>IDI &gt; 4.0</li>
+                                    <li>Error rate &gt; 1% for &gt; 5 minutes</li>
+                                    <li>2+ failed deployments in succession</li>
+                                    <li>Security vulnerability (critical)</li>
+                                    <li>Cost anomaly &gt; 50% increase</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.3.7 Lifecycle Adaptation</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">Phase</th>
+                                                <th class="py-2 pr-4">IoT Duration</th>
+                                                <th class="py-2 pr-4">Cloud Duration</th>
+                                                <th class="py-2">Cloud Focus</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Embryo</td><td class="py-2 pr-4">4-8 weeks</td><td class="py-2 pr-4">1-2 weeks</td><td class="py-2">API contracts, ADRs</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Growth</td><td class="py-2 pr-4">24-48 weeks</td><td class="py-2 pr-4">4-12 weeks</td><td class="py-2">Feature dev, CI/CD maturity</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Maturation</td><td class="py-2 pr-4">8-16 weeks</td><td class="py-2 pr-4">2-4 weeks</td><td class="py-2">Performance, Security</td></tr>
+                                            <tr><td class="py-2 pr-4">Evolution</td><td class="py-2 pr-4">Ongoing</td><td class="py-2 pr-4">Ongoing</td><td class="py-2">Feature flags, Observability</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card space-y-4">
+                            <h2 class="text-xl font-semibold">12.4 SYNAPSE/Embedded (Pure Firmware)</h2>
+                            <p class="text-sm text-gray-700">Hedef: Medikal cihazlar, otomotiv ECU'ları, safety-critical RTOS sistemleri.</p>
+                            <div>
+                                <h3 class="font-semibold">12.4.1 Key Characteristics</h3>
+                                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mt-2">
+                                    <li>Bulut bağlantısı yok ya da minimal</li>
+                                    <li>Ekstrem kaynak kısıtları</li>
+                                    <li>Safety sertifikasyonları</li>
+                                    <li>Uzun ürün yaşam döngüsü (10+ yıl)</li>
+                                    <li>Deterministik gerçek zaman gereksinimleri</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.4.2 Terminology Mapping</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">IoT Term</th>
+                                                <th class="py-2">Embedded Equivalent</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Digital Twin</td><td class="py-2">Virtual ECU / Simulator</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Cloud Gateway</td><td class="py-2">CAN Bus / Serial Interface</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Backend API</td><td class="py-2">Inter-process Communication</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Deployment</td><td class="py-2">Firmware Flash</td></tr>
+                                            <tr><td class="py-2 pr-4">Rollback</td><td class="py-2">Bootloader Recovery</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.4.3 Digital Twin Implementation</h3>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-xs overflow-x-auto mt-2">┌─────────────────────────────────────┐
+│         Test Harness                │
+├─────────────────────────────────────┤
+│     Application Layer (SUT)         │
+├─────────────────────────────────────┤
+│     RTOS Abstraction Layer          │
+├─────────────────────────────────────┤
+│     Hardware Abstraction Layer      │
+├─────────────────────────────────────┤
+│   Virtual MCU (QEMU/Custom Sim)     │
+└─────────────────────────────────────┘</pre>
+                                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mt-2">
+                                    <li>Cycle-accurate timing for safety-critical paths</li>
+                                    <li>Interrupt behavior matching</li>
+                                    <li>Peripheral simulation (ADC, PWM, GPIO)</li>
+                                    <li>Memory layout identical to target</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.4.4 IDI Formula (Embedded)</h3>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto mt-2">IDI = (Days × LoC/500 × Modules) / 10</pre>
+                                <p class="text-sm text-gray-700 mt-2">Not: LoC divisor 500 (embedded değişiklikleri daha yüksek etki taşır).</p>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.4.5 Quality Gate Templates</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">Gate</th>
+                                                <th class="py-2 pr-4">Threshold</th>
+                                                <th class="py-2">Enforcement Point</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Stack Usage</td><td class="py-2 pr-4">&lt; 80%</td><td class="py-2">Build</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">ROM Usage</td><td class="py-2 pr-4">&lt; 90%</td><td class="py-2">Build</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">RAM Usage</td><td class="py-2 pr-4">&lt; 85%</td><td class="py-2">Build</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">WCET</td><td class="py-2 pr-4">&lt; deadline</td><td class="py-2">Static Analysis</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">MISRA Compliance</td><td class="py-2 pr-4">0 violations</td><td class="py-2">Pre-commit</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">MC/DC Coverage</td><td class="py-2 pr-4">&gt; 100%</td><td class="py-2">Pre-merge</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Cyclomatic Complexity</td><td class="py-2 pr-4">&lt; 15</td><td class="py-2">Pre-commit</td></tr>
+                                            <tr><td class="py-2 pr-4">Static Analysis</td><td class="py-2 pr-4">0 critical</td><td class="py-2">Build</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.4.6 Neural Pruning Triggers</h3>
+                                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mt-2">
+                                    <li>Any safety-critical test failure</li>
+                                    <li>MISRA rule violation (mandatory)</li>
+                                    <li>Stack overflow detected</li>
+                                    <li>WCET deadline miss</li>
+                                    <li>IDI &gt; 3.0</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card space-y-4">
+                            <h2 class="text-xl font-semibold">12.5 SYNAPSE/Infra (Platform Engineering)</h2>
+                            <p class="text-sm text-gray-700">Hedef: IaC, Kubernetes, CI/CD, platform ekipleri.</p>
+                            <div>
+                                <h3 class="font-semibold">12.5.1 Key Characteristics</h3>
+                                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mt-2">
+                                    <li>Infrastructure-as-Code</li>
+                                    <li>Multi-environment yönetimi</li>
+                                    <li>Self-service developer experience</li>
+                                    <li>Compliance ve security odak</li>
+                                    <li>Cost optimizasyon</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.5.2 Terminology Mapping</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">IoT Term</th>
+                                                <th class="py-2">Infra Equivalent</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Component</td><td class="py-2">Terraform Module / Helm Chart</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Digital Twin</td><td class="py-2">Terraform Plan / Dry-run</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Integration</td><td class="py-2">Apply / Deployment</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Quality Gate</td><td class="py-2">Policy-as-Code (OPA)</td></tr>
+                                            <tr><td class="py-2 pr-4">IDI</td><td class="py-2">Config Drift Index</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.5.3 Digital Twin Implementation</h3>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto mt-2">terraform plan -out=plan.tfplan
+terraform plan -detailed-exitcode
+# Exit 0 = No drift (100% fidelity)
+# Exit 2 = Drift detected (fidelity < 100%)</pre>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto mt-2">Fidelity = (Resources_In_Sync / Total_Resources) × 100</pre>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.5.4 IDI Formula (Infra) - CDI</h3>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto mt-2">CDI = (Hours_Since_Last_Apply × Changed_Resources × Environments) / 100</pre>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.5.5 Quality Gate Templates</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">Gate</th>
+                                                <th class="py-2 pr-4">Threshold</th>
+                                                <th class="py-2">Enforcement Point</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Terraform Plan</td><td class="py-2 pr-4">No errors</td><td class="py-2">Pre-merge</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Policy Compliance (OPA)</td><td class="py-2 pr-4">100% pass</td><td class="py-2">Pre-merge</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Cost Estimate Delta</td><td class="py-2 pr-4">&lt; 20% increase</td><td class="py-2">Pre-merge</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Security Scan</td><td class="py-2 pr-4">0 high/critical</td><td class="py-2">Pre-merge</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Blast Radius</td><td class="py-2 pr-4">&lt; 50 resources</td><td class="py-2">Pre-apply</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Drift Detection</td><td class="py-2 pr-4">&lt; 5% resources</td><td class="py-2">Scheduled</td></tr>
+                                            <tr><td class="py-2 pr-4">RBAC Audit</td><td class="py-2 pr-4">No overprivileged</td><td class="py-2">Scheduled</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.5.6 Neural Pruning Triggers</h3>
+                                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mt-2">
+                                    <li>Drift &gt; 20% of resources</li>
+                                    <li>Cost anomaly &gt; 100% increase</li>
+                                    <li>Security policy violation</li>
+                                    <li>Failed apply in production</li>
+                                    <li>CDI &gt; 5.0</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card space-y-4">
+                            <h2 class="text-xl font-semibold">12.6 SYNAPSE/Data (Data Engineering & ML)</h2>
+                            <p class="text-sm text-gray-700">Hedef: ETL, data lake/warehouse, ML pipeline, feature store.</p>
+                            <div>
+                                <h3 class="font-semibold">12.6.1 Key Characteristics</h3>
+                                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mt-2">
+                                    <li>Data quality kritik</li>
+                                    <li>Schema evolution zorlukları</li>
+                                    <li>Uzun süren job'lar</li>
+                                    <li>Reproducibility gereksinimi</li>
+                                    <li>Lineage ve auditability</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.6.2 Terminology Mapping</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">IoT Term</th>
+                                                <th class="py-2">Data Equivalent</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Component</td><td class="py-2">Pipeline / DAG</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Digital Twin</td><td class="py-2">Data Contract / Schema Registry</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Integration</td><td class="py-2">Pipeline Orchestration</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Quality Gate</td><td class="py-2">Data Quality Check</td></tr>
+                                            <tr><td class="py-2 pr-4">IDI</td><td class="py-2">Schema Drift Index</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.6.3 Digital Twin Implementation</h3>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-xs overflow-x-auto mt-2"># data_contract.yaml
+dataset: user_events
+version: 2.1.0
+schema:
+  - name: user_id
+    type: string
+    nullable: false
+  - name: event_type
+    type: string
+    enum: [click, view, purchase]
+  - name: timestamp
+    type: timestamp
+    nullable: false
+quality:
+  - freshness: < 1 hour
+  - completeness: > 99%
+  - uniqueness: user_id + timestamp</pre>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto mt-2">Fidelity = (
+  Schema_Match × 0.4 +
+  Freshness_SLA × 0.3 +
+  Quality_Metrics × 0.3
+) × 100</pre>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.6.4 IDI Formula (Data)</h3>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto mt-2">SDI = (Days_Since_Schema_Sync × Breaking_Changes × Downstream_Consumers) / 50</pre>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.6.5 Quality Gate Templates</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">Gate</th>
+                                                <th class="py-2 pr-4">Threshold</th>
+                                                <th class="py-2">Enforcement Point</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Schema Validation</td><td class="py-2 pr-4">100% match</td><td class="py-2">Pipeline start</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Data Freshness</td><td class="py-2 pr-4">&lt; SLA</td><td class="py-2">Continuous</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Null Rate</td><td class="py-2 pr-4">&lt; threshold</td><td class="py-2">Pipeline end</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Uniqueness</td><td class="py-2 pr-4">100% PK</td><td class="py-2">Pipeline end</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Row Count Delta</td><td class="py-2 pr-4">&lt; 20%</td><td class="py-2">Pipeline end</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Data Type Match</td><td class="py-2 pr-4">100%</td><td class="py-2">Pipeline start</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">PII Detection</td><td class="py-2 pr-4">0 unmasked</td><td class="py-2">Pre-production</td></tr>
+                                            <tr><td class="py-2 pr-4">Query Performance</td><td class="py-2 pr-4">&lt; SLA</td><td class="py-2">Scheduled</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.6.6 Neural Pruning Triggers</h3>
+                                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mt-2">
+                                    <li>Schema breaking change without migration</li>
+                                    <li>Data freshness SLA breach &gt; 2 hours</li>
+                                    <li>Data quality score &lt; 90%</li>
+                                    <li>Pipeline failure &gt; 3 consecutive runs</li>
+                                    <li>SDI &gt; 4.0</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card space-y-4">
+                            <h2 class="text-xl font-semibold">12.7 SYNAPSE/Mobile (Mobile Applications)</h2>
+                            <p class="text-sm text-gray-700">Hedef: iOS/Android, cross-platform, mobil backend.</p>
+                            <div>
+                                <h3 class="font-semibold">12.7.1 Key Characteristics</h3>
+                                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mt-2">
+                                    <li>İki platform (iOS + Android)</li>
+                                    <li>App store review süreçleri</li>
+                                    <li>Device fragmentation</li>
+                                    <li>Offline capability</li>
+                                    <li>Battery ve performans hassasiyeti</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.7.2 Terminology Mapping</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">IoT Term</th>
+                                                <th class="py-2">Mobile Equivalent</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Hardware</td><td class="py-2">Device</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Firmware</td><td class="py-2">Native Code</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Digital Twin</td><td class="py-2">Simulator / Emulator Farm</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Power Budget</td><td class="py-2">Battery Impact</td></tr>
+                                            <tr><td class="py-2 pr-4">Deployment</td><td class="py-2">App Store Release</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.7.3 Digital Twin Implementation</h3>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto mt-2">Physical Devices in Users' Hands
+        ↕ (Twin relationship)
+Cloud Device Farm (AWS Device Farm, Firebase Test Lab)
+        ↕ (Twin relationship)
+Local Simulators/Emulators</pre>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">Test Level</th>
+                                                <th class="py-2 pr-4">Fidelity</th>
+                                                <th class="py-2 pr-4">Speed</th>
+                                                <th class="py-2">Cost</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Local Simulator</td><td class="py-2 pr-4">70%</td><td class="py-2 pr-4">Fast</td><td class="py-2">Free</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Cloud Emulator</td><td class="py-2 pr-4">85%</td><td class="py-2 pr-4">Medium</td><td class="py-2">Low</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Cloud Physical</td><td class="py-2 pr-4">95%</td><td class="py-2 pr-4">Slow</td><td class="py-2">High</td></tr>
+                                            <tr><td class="py-2 pr-4">Beta Users</td><td class="py-2 pr-4">99%</td><td class="py-2 pr-4">Slowest</td><td class="py-2">Medium</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.7.4 IDI Formula (Mobile)</h3>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto mt-2">IDI = (Days × Changed_Screens × Platform_Factor) / 100</pre>
+                                <p class="text-sm text-gray-700 mt-2">Platform_Factor: 1.0 single, 1.5 cross-platform, 2.0 native both.</p>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.7.5 Quality Gate Templates</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">Gate</th>
+                                                <th class="py-2 pr-4">Threshold</th>
+                                                <th class="py-2">Enforcement Point</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Bundle Size (iOS)</td><td class="py-2 pr-4">&lt; 100MB</td><td class="py-2">Build</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">APK Size (Android)</td><td class="py-2 pr-4">&lt; 50MB</td><td class="py-2">Build</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Cold Start Time</td><td class="py-2 pr-4">&lt; 2s</td><td class="py-2">CI Device Farm</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Crash-Free Rate</td><td class="py-2 pr-4">&gt; 99.5%</td><td class="py-2">Production</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">ANR Rate (Android)</td><td class="py-2 pr-4">&lt; 0.1%</td><td class="py-2">Production</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Battery Impact</td><td class="py-2 pr-4">&lt; 5% per hour</td><td class="py-2">Device Farm</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Memory Usage</td><td class="py-2 pr-4">&lt; 200MB</td><td class="py-2">Device Farm</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Accessibility Score</td><td class="py-2 pr-4">100%</td><td class="py-2">Build</td></tr>
+                                            <tr><td class="py-2 pr-4">UI Test Coverage</td><td class="py-2 pr-4">&gt; 70%</td><td class="py-2">Pre-merge</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.7.6 Neural Pruning Triggers</h3>
+                                <ul class="text-sm text-gray-700 list-disc list-inside space-y-1 mt-2">
+                                    <li>Crash-free rate &lt; 99%</li>
+                                    <li>App store rejection</li>
+                                    <li>Critical security vulnerability</li>
+                                    <li>IDI &gt; 4.0</li>
+                                    <li>Bundle size increase &gt; 20%</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card space-y-4">
+                            <h2 class="text-xl font-semibold">12.8 Hybrid and Custom Projects</h2>
+                            <div>
+                                <h3 class="font-semibold">12.8.1 When to Use Hybrid</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">Project</th>
+                                                <th class="py-2 pr-4">Primary</th>
+                                                <th class="py-2 pr-4">Secondary</th>
+                                                <th class="py-2">Tertiary</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Smart Home Hub</td><td class="py-2 pr-4">IoT</td><td class="py-2 pr-4">Cloud</td><td class="py-2">Mobile</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Fintech Platform</td><td class="py-2 pr-4">Cloud</td><td class="py-2 pr-4">Data</td><td class="py-2">Mobile</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Autonomous Vehicle</td><td class="py-2 pr-4">Embedded</td><td class="py-2 pr-4">IoT</td><td class="py-2">Data</td></tr>
+                                            <tr><td class="py-2 pr-4">E-commerce</td><td class="py-2 pr-4">Cloud</td><td class="py-2 pr-4">Data</td><td class="py-2">Infra</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.8.2 Hybrid IDI Calculation</h3>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto mt-2">IDI_hybrid = Σ (IDI_type × Weight_type)
+
+Where Weight = Component_Count_type / Total_Components</pre>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.8.3 Custom Flavor Creation</h3>
+                                <ol class="text-sm text-gray-700 list-decimal list-inside space-y-1 mt-2">
+                                    <li>Dominant constraints belirle (time, cost, safety, compliance)</li>
+                                    <li>En yakın base flavor seç</li>
+                                    <li>Quality Gate'leri özelleştir</li>
+                                    <li>IDI threshold'larını tarihi verilere göre ayarla</li>
+                                    <li>Neural Pruning trigger'larını domain'e özel tanımla</li>
+                                </ol>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-xs overflow-x-auto mt-3">base_flavor: SYNAPSE/Cloud
+extends:
+  quality_gates:
+    - hipaa_compliance: required
+    - phi_detection: 0_violations
+    - audit_logging: 100%_coverage
+  idi_threshold:
+    warning: 3.0  # Stricter
+    critical: 4.0
+  neural_pruning:
+    - hipaa_violation: immediate_quarantine
+    - phi_leak: immediate_quarantine</pre>
+                            </div>
+                        </div>
+
+                        <div class="card space-y-4">
+                            <h2 class="text-xl font-semibold">12.9 Flavor Selection Guide</h2>
+                            <div>
+                                <h3 class="font-semibold">12.9.1 Decision Tree</h3>
+                                <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-xs overflow-x-auto mt-2">Start
+  │
+  ├─ Does project involve physical hardware?
+  │   ├─ Yes → Is hardware safety-critical?
+  │   │         ├─ Yes → SYNAPSE/Embedded
+  │   │         └─ No  → Does it connect to cloud?
+  │   │                   ├─ Yes → SYNAPSE/IoT
+  │   │                   └─ No  → SYNAPSE/Embedded
+  │   │
+  │   └─ No  → Is it primarily data/ML focused?
+  │             ├─ Yes → SYNAPSE/Data
+  │             └─ No  → Is it infrastructure/platform?
+  │                       ├─ Yes → SYNAPSE/Infra
+  │                       └─ No  → Is it mobile app?
+  │                                 ├─ Yes → SYNAPSE/Mobile
+  │                                 └─ No  → SYNAPSE/Cloud</pre>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.9.2 Quick Reference Matrix</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">Factor</th>
+                                                <th class="py-2 pr-4">IoT</th>
+                                                <th class="py-2 pr-4">Cloud</th>
+                                                <th class="py-2 pr-4">Embedded</th>
+                                                <th class="py-2 pr-4">Infra</th>
+                                                <th class="py-2 pr-4">Data</th>
+                                                <th class="py-2">Mobile</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Physical HW</td><td class="py-2 pr-4">✅</td><td class="py-2 pr-4">❌</td><td class="py-2 pr-4">✅</td><td class="py-2 pr-4">❌</td><td class="py-2 pr-4">❌</td><td class="py-2">❌</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Cloud Backend</td><td class="py-2 pr-4">✅</td><td class="py-2 pr-4">✅</td><td class="py-2 pr-4">❌</td><td class="py-2 pr-4">✅</td><td class="py-2 pr-4">✅</td><td class="py-2">✅</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Safety Critical</td><td class="py-2 pr-4">⚠️</td><td class="py-2 pr-4">❌</td><td class="py-2 pr-4">✅</td><td class="py-2 pr-4">❌</td><td class="py-2 pr-4">❌</td><td class="py-2">❌</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">High Deploy Freq</td><td class="py-2 pr-4">❌</td><td class="py-2 pr-4">✅</td><td class="py-2 pr-4">❌</td><td class="py-2 pr-4">✅</td><td class="py-2 pr-4">⚠️</td><td class="py-2">⚠️</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Data Intensive</td><td class="py-2 pr-4">⚠️</td><td class="py-2 pr-4">⚠️</td><td class="py-2 pr-4">❌</td><td class="py-2 pr-4">❌</td><td class="py-2 pr-4">✅</td><td class="py-2">❌</td></tr>
+                                            <tr><td class="py-2 pr-4">Multi-Platform</td><td class="py-2 pr-4">❌</td><td class="py-2 pr-4">❌</td><td class="py-2 pr-4">❌</td><td class="py-2 pr-4">❌</td><td class="py-2 pr-4">❌</td><td class="py-2">✅</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card space-y-4">
+                            <h2 class="text-xl font-semibold">12.10 Migration Between Flavors</h2>
+                            <div>
+                                <h3 class="font-semibold">12.10.1 Common Migrations</h3>
+                                <div class="overflow-x-auto mt-2">
+                                    <table class="min-w-full text-sm">
+                                        <thead>
+                                            <tr class="text-left text-gray-500 border-b">
+                                                <th class="py-2 pr-4">From</th>
+                                                <th class="py-2 pr-4">To</th>
+                                                <th class="py-2 pr-4">Trigger</th>
+                                                <th class="py-2">Key Changes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-gray-700">
+                                            <tr class="border-b"><td class="py-2 pr-4">Cloud</td><td class="py-2 pr-4">IoT</td><td class="py-2 pr-4">Adding hardware</td><td class="py-2">Power/thermal gates, HIL testing</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Embedded</td><td class="py-2 pr-4">IoT</td><td class="py-2 pr-4">Adding connectivity</td><td class="py-2">Cloud twin, deployment pipeline</td></tr>
+                                            <tr class="border-b"><td class="py-2 pr-4">Cloud</td><td class="py-2 pr-4">Data</td><td class="py-2 pr-4">Growing analytics</td><td class="py-2">Data contracts, quality metrics</td></tr>
+                                            <tr><td class="py-2 pr-4">Any</td><td class="py-2 pr-4">Hybrid</td><td class="py-2 pr-4">Expanding scope</td><td class="py-2">Weighted IDI, multi-gate sets</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">12.10.2 Migration Checklist</h3>
+                                <ol class="text-sm text-gray-700 list-decimal list-inside space-y-1 mt-2">
+                                    <li>Audit current Quality Gates</li>
+                                    <li>Recalculate IDI with new formula</li>
+                                    <li>Update Digital Twin strategy</li>
+                                    <li>Revise Neural Pruning triggers</li>
+                                    <li>Retrain team on new terminology</li>
+                                    <li>Update automation rules</li>
+                                    <li>Migrate historical data (if possible)</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="card space-y-4">
+                            <h2 class="text-xl font-semibold">12.11 Summary</h2>
+                            <p class="text-sm text-gray-700">SYNAPSE'ın gücü ilkelerdedir. Uygulamalar değişebilir, niyet değişmez.</p>
+                            <ul class="text-sm text-gray-700 list-disc list-inside space-y-1">
+                                <li><strong>Digital Twin</strong> = üretim öncesi güvenilir temsil</li>
+                                <li><strong>IDI</strong> = entegrasyon drift ölçümü</li>
+                                <li><strong>Quality Gates</strong> = otomatik policy enforcement</li>
+                                <li><strong>Neural Pruning</strong> = sağlıksız bileşen izolasyonu</li>
+                            </ul>
+                            <div class="border-t pt-4 text-sm text-gray-600">
+                                <p><strong>Key Takeaways</strong></p>
+                                <ol class="list-decimal list-inside space-y-1 mt-2">
+                                    <li>Doğru flavor ile başla</li>
+                                    <li>Threshold'ları bağlamına göre ayarla</li>
+                                    <li>İlkeleri koru, uygulamayı uyarla</li>
+                                    <li>Projeler değiştikçe flavor da evrilir</li>
+                                </ol>
+                                <p class="mt-3 text-synapse-700 font-medium">Next Chapter: Chapter 13 - SYNAPSE Implementation Patterns</p>
                             </div>
                         </div>
                     </div>
